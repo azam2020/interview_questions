@@ -3,409 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CMOS & VLSI Design Revision Guide</title>
+    <title>Engineering Revision Portal</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- MathJax for LaTeX Rendering -->
-    <script>
-        MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            },
-            svg: {
-                fontCache: 'global'
-            }
-        };
-    </script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #f4f7f6;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
         }
-        .header-banner {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        
+        /* Hero Section Styling */
+        .hero-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 3rem 0;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            border-bottom: 5px solid #ffc107;
         }
-        .card {
+
+        /* Card Styling & Hover Effects */
+        .topic-card {
             border: none;
-            border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-            transition: transform 0.2s ease;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            height: 100%;
+            background-color: white;
+            overflow: hidden;
         }
-        .card:hover {
-            transform: translateY(-2px);
+        
+        .topic-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
         }
-        .card-header {
-            background-color: #ffffff;
-            border-bottom: 2px solid #e9ecef;
-            border-radius: 10px 10px 0 0 !important;
-            padding: 1.25rem 1.5rem;
-        }
-        .question-title {
-            color: #2c3e50;
-            font-weight: 600;
-            margin: 0;
-            font-size: 1.15rem;
-        }
-        .card-body {
-            padding: 1.5rem;
-            line-height: 1.6;
-        }
-        .ascii-art {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            padding: 1.5rem;
-            border-radius: 8px;
-            font-family: 'Consolas', 'Courier New', monospace;
-            overflow-x: auto;
-            border: 1px solid #333;
-        }
-        h5.section-title {
-            color: #203a43;
-            margin-top: 1.5rem;
+
+        .card-icon-wrapper {
+            background-color: #f8f9fa;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
             margin-bottom: 1rem;
-            border-bottom: 2px solid #203a43;
-            padding-bottom: 0.5rem;
-            display: inline-block;
+            color: #1e3c72;
+            font-size: 1.8rem;
         }
-        .highlight-box {
-            background-color: #e8f4f8;
-            border-left: 4px solid #3498db;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 0 5px 5px 0;
+
+        .topic-card .card-body {
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-custom {
+            background-color: #1e3c72;
+            color: white;
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-custom:hover {
+            background-color: #2a5298;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: #adb5bd;
+            padding: 2rem 0;
+            margin-top: 4rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="header-banner text-center">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <h1 class="display-4 fw-bold">CMOS & VLSI Design</h1>
-            <p class="lead">Interactive Revision Guide: Logic Gates, Timing, Mirrors, and Device Physics</p>
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-cpu text-warning me-2"></i> Revision Portal
+            </a>
         </div>
-    </div>
+    </nav>
 
-    <div class="container">
-
-        <!-- Topic 1: Logic Gates Resistance Analysis -->
-        <h3 class="mb-4 text-secondary">Section 1: Logic Gates Resistance Analysis</h3>
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: Calculate the ratio of the best-case rising resistance to the worst-case falling resistance for a CMOS 2-input NAND Gate (assuming equal lengths and widths).</h4>
-            </div>
-            <div class="card-body">
-                <p><strong>Answer:</strong> The ratio is <strong>1/2</strong>.</p>
-                <ul>
-                    <li><strong>Best-case Rising (Pull-Up Network):</strong> Both PMOS transistors are ON in parallel. <br>$R_{rise\_best} = R_P \parallel R_P = R_P / 2$</li>
-                    <li><strong>Worst-case Falling (Pull-Down Network):</strong> Both NMOS transistors are in series and must be ON for the output to fall. <br>$R_{fall\_worst} = R_N + R_N = 2R_N$</li>
-                </ul>
-                <p>Assuming typical mobility where electron mobility is roughly twice hole mobility ($\mu_n \approx 2\mu_p$), and given equally sized transistors ($W_N = W_P$), we establish that $R_P = 2R_N$.</p>
-                <div class="highlight-box">
-                    $$Ratio = \frac{R_{rise\_best}}{R_{fall\_worst}} = \frac{R_P / 2}{2R_N} = \frac{2R_N / 2}{2R_N} = \frac{R_N}{2R_N} = \frac{1}{2}$$
-                </div>
-            </div>
+    <!-- Hero Section -->
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Technical Interview & Exam Prep</h1>
+            <p class="lead mb-0">Select a module below to review concepts, derivations, and problem-solving methodologies.</p>
         </div>
+    </header>
 
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: Is there any difference between best-case and worst-case falling resistance in a 2-input NAND gate?</h4>
-            </div>
-            <div class="card-body">
-                <p><strong>Answer:</strong> <strong>No</strong>, there is no difference.</p>
-                <p>The falling transition is controlled by the Pull-Down Network (PDN), which consists of two NMOS transistors connected in <strong>series</strong>. For the output to fall to ground, <em>both</em> inputs must be High to turn on both NMOS transistors. Because there is only one possible input combination that creates a complete path to ground, there is only one possible resistance value: $R_{fall} = R_N + R_N = 2R_N$.</p>
-            </div>
-        </div>
+    <!-- Main Content / Module Grid -->
+    <main class="container">
+        <div class="row g-4">
 
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: Calculate the ratio of best-case rising to worst-case falling resistance for a 2-input NOR gate.</h4>
-            </div>
-            <div class="card-body">
-                <p><strong>Answer:</strong> The ratio is <strong>4</strong>.</p>
-                <ul>
-                    <li><strong>Best-case Rising (PMOS in Series):</strong> $R_{rise\_best} = 2R_P$</li>
-                    <li><strong>Worst-case Falling (NMOS in Parallel):</strong> Occurs when only one NMOS is ON. $R_{fall\_worst} = R_N$</li>
-                </ul>
-                <p>Substituting $R_P = 2R_N$:</p>
-                <div class="highlight-box">
-                    $$Ratio = \frac{2R_P}{R_N} = \frac{2(2R_N)}{R_N} = \frac{4R_N}{R_N} = 4$$
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: What is the ratio of best-case rising resistance to BEST-case falling resistance for a 2-input NOR gate?</h4>
-            </div>
-            <div class="card-body">
-                <p><strong>Answer:</strong> The ratio is <strong>8</strong>.</p>
-                <p>The best-case falling resistance occurs when both parallel NMOS transistors are ON simultaneously.</p>
-                <ul>
-                    <li><strong>Best-case Rising:</strong> $R_{rise\_best} = 2R_P$</li>
-                    <li><strong>Best-case Falling:</strong> $R_{fall\_best} = R_N \parallel R_N = \frac{R_N}{2}$</li>
-                </ul>
-                <p>Substituting $R_P = 2R_N$:</p>
-                <div class="highlight-box">
-                    $$Ratio = \frac{2R_P}{R_N / 2} = \frac{4R_N}{0.5R_N} = 8$$
-                </div>
-            </div>
-        </div>
-
-        <!-- Topic 2: Timing & Clock Skew -->
-        <h3 class="mb-4 mt-5 text-secondary">Section 2: Timing & Clock Skew</h3>
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: Write setup and hold time equations for two flip-flops with a combinational delay. Explain the impact of positive and negative clock skew ($\delta$).</h4>
-            </div>
-            <div class="card-body">
-                <h5 class="section-title">Ideal Clock Equations</h5>
-                <ul>
-                    <li><strong>Setup Time:</strong> $t_{cq} + t_{comb(max)} \le T_{clk} - t_{su}$</li>
-                    <li><strong>Hold Time:</strong> $t_{cq} + t_{comb(min)} \ge t_{h}$</li>
-                </ul>
-                
-                <h5 class="section-title">Equations with Delay $\delta$ in Capture Path (Positive Skew)</h5>
-                <ul>
-                    <li><strong>Setup Time:</strong> $t_{cq} + t_{comb(max)} \le T_{clk} + \delta - t_{su}$</li>
-                    <li><strong>Hold Time:</strong> $t_{cq} + t_{comb(min)} \ge t_{h} + \delta$</li>
-                </ul>
-
-                <h5 class="section-title">Impact Analysis</h5>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="highlight-box border-success">
-                            <strong>Positive Skew:</strong>
-                            <ul>
-                                <li><strong>Setup Time:</strong> <em>Decreases</em> chances of violations (more time for data to arrive).</li>
-                                <li><strong>Hold Time:</strong> <em>Increases</em> chances of violations (data must be held longer).</li>
-                            </ul>
+            <!-- Module 1: CMOS & VLSI -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card topic-card">
+                    <div class="card-body d-flex flex-column">
+                        <div class="card-icon-wrapper">
+                            <i class="bi bi-motherboard"></i>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="highlight-box border-danger">
-                            <strong>Negative Skew:</strong>
-                            <ul>
-                                <li><strong>Setup Time:</strong> <em>Increases</em> chances of violations (less time for data to arrive).</li>
-                                <li><strong>Hold Time:</strong> <em>Decreases</em> chances of violations (data hold requirement is reduced).</li>
-                            </ul>
-                        </div>
+                        <h4 class="card-title">CMOS & VLSI Design</h4>
+                        <p class="card-text">Logic gate resistance ratios, clock skew timing, current mirrors, and MOSFET device physics operations.</p>
+                        <!-- Change the href to whatever you named the previous HTML file -->
+                        <a href="cmos_vlsi.html" class="btn btn-custom mt-auto align-self-start">Review Topic <i class="bi bi-arrow-right ms-2"></i></a>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Topic 3: Current Mirrors -->
-        <h3 class="mb-4 mt-5 text-secondary">Section 3: Current Mirrors</h3>
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: Draw and explain NMOS and PMOS Current Mirrors. Why is NMOS generally preferred?</h4>
-            </div>
-            <div class="card-body">
-                
-                <h5 class="section-title">1. Why NMOS is Often Preferred (The Mobility Advantage)</h5>
-                <p>NMOS is often favored due to <strong>Carrier Mobility</strong>. Electrons have a much higher mobility ($\mu_n \approx 2\mu_p$ to $3\mu_p$) than holes. Therefore, an NMOS transistor can be physically smaller than a PMOS to drive the same current, saving silicon area and reducing parasitic capacitances (making NMOS mirrors faster).</p>
-
-                <h5 class="section-title">2. NMOS Current Mirror (Current Sinking)</h5>
-<pre class="ascii-art">
-         V_DD                       V_DD
-           |                          |
-        [R_REF]                     [Load]
-           |                          |
-           +-----------+              |
-           |           |              |
-         D |           |            D | 
-       +---+           |          +---+
-       |   | G         |        G |   |
-       | +-+           +----------+-+ |
- I_REF | |                          | | I_OUT
-  ---> | | M1 (Diode-Connected)     | | M2
-       | +-+                      +-+ |
-       |   |                        | |
-       +---+                      +---+
-         S |                      S | 
-           |                        |
-          GND                      GND
-</pre>
-                
-                <h5 class="section-title">3. PMOS Current Mirror (Current Sourcing)</h5>
-<pre class="ascii-art">
-       V_DD                       V_DD
-         |                          |
-       S |                        S |
-       +---+                      +---+
-     G |   |                    G |   |
-  +----+-+ |                      | +-+----+
-  |      | | M1 (Diode-Connected) | | M2   |
-  |    +-+ |                      | +-+    |
-  |  D |   |                      |   | D  |
-  |    +---+                      +---+    |
-  |      |                          |      |
-  +------+                          |      |
-         |                          | I_OUT
-         | I_REF                  [Load]
-      [R_REF]                       |
-         |                          |
-        GND                        GND
-</pre>
-                <p><strong>Operation Principle:</strong> M1 is diode-connected (Gate shorted to Drain), operating in saturation. $I_{REF}$ forces M1 to develop a specific gate-source voltage. Because M2 shares this exact gate-source voltage and is identical to M1, it naturally mirrors (duplicates) $I_{REF}$ into the load as $I_{OUT}$.</p>
-            </div>
-        </div>
-
-        <!-- Topic 4: MOSFET Device Physics -->
-        <h3 class="mb-4 mt-5 text-secondary">Section 4: Device Physics & Body Effect</h3>
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: Why is the body terminal connected to the source in CMOS? What happens if it's connected to the drain?</h4>
-            </div>
-            <div class="card-body">
-                <p><strong>Why Body is connected to Source:</strong></p>
-                <ol>
-                    <li><strong>Eliminate Body Effect:</strong> Keeps $V_{SB} = 0$, ensuring a stable threshold voltage ($V_{TH}$).</li>
-                    <li><strong>Prevent Latch-up:</strong> Keeps the parasitic body-to-source and body-to-drain PN junction diodes strictly reverse-biased.</li>
-                </ol>
-
-                <div class="highlight-box border-danger">
-                    <strong>What if Body is connected to Drain? (SHORT CIRCUIT)</strong><br>
-                    Connecting the Body (P-type in NMOS) to the Drain (tied to $V_{DD}$) forces the substrate to a high voltage. This strongly <strong>forward-biases the internal Body-to-Source parasitic diode</strong>. A massive, unrestricted current bypasses the channel entirely, flowing straight from $V_{DD}$, through the substrate, into Ground, destroying the chip via latch-up.
+            <!-- Module 2: AMD Intervew Questions -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card topic-card">
+                    <div class="card-body d-flex flex-column">
+                        <div class="card-icon-wrapper">
+                            <i class="bi bi-hdd-network"></i>
+                        </div>
+                        <h4 class="card-title">AMD Interview Qs - Part 1</h4>
+                        <p class="card-text">Collection of technical questions and theoretical concepts covering digital logic and architecture.</p>
+                        <a href="amd1.html" class="btn btn-custom mt-auto align-self-start">Review Topic <i class="bi bi-arrow-right ms-2"></i></a>
+                    </div>
                 </div>
-
-<pre class="ascii-art">
-           V_DD (e.g., 5V)
-            |
-            +-----------------------+
-            |                       |
-          D |                       |
-          +-+-+                     |
-        G |   |                     | (Faulty Wire: Body to Drain)
-    IN ---+-+ |                     | 
-            | |---+ B (Body)        | 
-            | |   |                 |
-          +-+-+   |                 |
-          S |     |                 |
-            |     +-----------------+
-            |     |
-           GND    V  <-- Internal Parasitic Diode turns ON (Forward Biased)
-          (0V)    -
-                  |
-                 GND 
-</pre>
             </div>
+
+            <!-- Module 3: Optical Communications -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card topic-card">
+                    <div class="card-body d-flex flex-column">
+                        <div class="card-icon-wrapper">
+                            <i class="bi bi-broadcast"></i>
+                        </div>
+                        <h4 class="card-title">Optical Comm Systems</h4>
+                        <p class="card-text">Transmitter/fiber channel block diagrams, system models, and step-by-step derivations for solitons.</p>
+                        <a href="optical_comm.html" class="btn btn-custom mt-auto align-self-start">Review Topic <i class="bi bi-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 4: EMC & Circuits -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card topic-card">
+                    <div class="card-body d-flex flex-column">
+                        <div class="card-icon-wrapper">
+                            <i class="bi bi-lightning-charge"></i>
+                        </div>
+                        <h4 class="card-title">Electromagnetic Compatibility</h4>
+                        <p class="card-text">Circuit analysis covering mutual inductance, electromagnetic shielding principles, and circuit coupling.</p>
+                        <a href="emc_circuits.html" class="btn btn-custom mt-auto align-self-start">Review Topic <i class="bi bi-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add New Module Placeholder -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card topic-card" style="border: 2px dashed #ced4da; background-color: transparent; box-shadow: none;">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center text-center" style="min-height: 250px;">
+                        <i class="bi bi-plus-circle text-secondary mb-3" style="font-size: 3rem;"></i>
+                        <h5 class="text-secondary">Add New Thread</h5>
+                        <p class="card-text text-muted">Create a new HTML file and link it here.</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </main>
 
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: Why is the NMOS substrate 'p' instead of 'p+'? What changes if 'p+' is used?</h4>
-            </div>
-            <div class="card-body">
-                <p>The substrate is lightly doped (p-) to allow a manageable gate voltage to invert the channel. If a heavily doped (p+) substrate were used, the following catastrophic changes would occur:</p>
-                <ul>
-                    <li><strong>Threshold Voltage Skyrockets:</strong> It becomes incredibly difficult to repel the massive concentration of holes. $V_{TH}$ would become too high for standard logic operations.</li>
-                    <li><strong>Mobility Degrades:</strong> Massive ionized impurity scattering would severely lower electron mobility ($\mu_n$), slowing down the transistor.</li>
-                    <li><strong>Junction Capacitance Increases:</strong> The n+/p+ junction creates a microscopic depletion width, acting as a high-value capacitor causing tremendous RC delays.</li>
-                    <li><strong>Breakdown Voltage Plummets:</strong> The strong electric field across the narrow depletion region would cause Zener breakdown at low voltages.</li>
-                    <li><strong>Exaggerated Body Effect:</strong> The body effect parameter ($\gamma$) is directly proportional to $\sqrt{N_A}$, making threshold voltages highly unstable.</li>
-                </ul>
-            </div>
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Revision Portal. Hosted on GitHub Pages.</p>
         </div>
+    </footer>
 
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: Why are the Source and Drain n+ instead of n?</h4>
-            </div>
-            <div class="card-body">
-                <ul>
-                    <li><strong>Ohmic Contacts:</strong> Heavy doping (n+) thins the barrier at the metal-silicon junction enough to allow quantum tunneling. This prevents a rectifying Schottky diode from forming, ensuring current can flow freely in both directions.</li>
-                    <li><strong>Reduced Series Resistance:</strong> It acts as a highly conductive path, ensuring voltage reaches the channel without being wasted as heat.</li>
-                    <li><strong>Carrier Reservoir:</strong> Provides a massive supply of free electrons to flood the channel instantly when the transistor turns ON.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Topic 5: Buffers & Transmission Gates -->
-        <h3 class="mb-4 mt-5 text-secondary">Section 5: Buffers & Transmission Gates</h3>
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: What happens if you exchange PMOS & NMOS in a CMOS inverter?</h4>
-            </div>
-            <div class="card-body">
-                <p>This circuit is called a <strong>Poor Buffer</strong> or <strong>Degraded Buffer</strong>. It stops inverting and attempts to follow the input, but with severely degraded logic levels.</p>
-                <ul>
-                    <li><strong>Logic High (NMOS Pulling Up):</strong> Maxes out at a "Weak 1" ($V_{DD} - V_{THN}$) because the NMOS pinches off.</li>
-                    <li><strong>Logic Low (PMOS Pulling Down):</strong> Bottoms out at a "Weak 0" ($|V_{THP}|$) because the PMOS pinches off.</li>
-                </ul>
-<pre class="ascii-art">
-       Input Waveform (Vin)                    Output Waveform (Vout)
-       
- V_DD +--------+          +---           V_DD +
-      |        |          |                   |
-      |        |          |       V_DD-V_THN -+--------+          +---
-      |        |          |                   |        |          |
-      |        |          |                   |        |          |
-      |        |          |          |V_THP| -+        +----------+
-      |        |          |                   |
-  0V -+        +----------+               0V -+-----------------------
-</pre>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="question-title">Q: How do you construct a rail-to-rail buffer? Can a Transmission Gate be used instead?</h4>
-            </div>
-            <div class="card-body">
-                <h5 class="section-title">1. Cascaded Inverters (Rail-to-Rail Buffer)</h5>
-                <p>A true rail-to-rail buffer is built by cascading two standard CMOS inverters in series. It actively regenerates the signal and isolated loads.</p>
-<pre class="ascii-art">
-          V_DD                       V_DD
-           |                          |
-         +-+-+                      +-+-+
-         |   |                      |   |
-       G |   |                    G |   |
- V_in ---+-+ |              +-------+-+ |
-           | | PMOS1        |         | | PMOS2
-           +-+              |         +-+
-         D |                |       D |
-           +---- Node X ----+         +---- V_out
-         D |                |       D |
-           +-+              |         +-+
-       G   | | NMOS1        |     G   | | NMOS2
-      ---+-+ |              +-------+-+ |
-         |   |                        | |
-         +-+-+                      +-+-+
-           |                          |
-          GND                        GND
-</pre>
-                
-                <h5 class="section-title">2. Drawbacks of a Transmission Gate as a Buffer</h5>
-                <p>While a transmission gate passes full rail-to-rail voltage, <strong>cascaded inverters are strongly preferred</strong>. A permanently ON transmission gate has severe drawbacks:</p>
-                <ul>
-                    <li><strong>No Signal Regeneration:</strong> It is a passive element. It simply passes noisy or degraded inputs directly to the output without reshaping them into sharp square waves.</li>
-                    <li><strong>Zero Load Isolation:</strong> The input driving circuit directly "sees" whatever heavy capacitive load is on the output, causing massive delays.</li>
-                    <li><strong>Added RC Delay:</strong> It introduces series resistance ($R_{on}$), creating an RC low-pass filter with the load capacitance.</li>
-                    <li><strong>Wasted Area:</strong> If purely passive connection is needed, a metal wire is superior and consumes no active silicon area.</li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Bootstrap 5 JS Bundle -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
