@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMD Interview Experience Q&A (Kiran Kumar CS)</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- html2pdf JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- MathJax for rendering LaTeX/Math equations -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 50px;
+        }
+        .header-section {
+            background-color: #1a252f;
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .qa-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border-left: 5px solid #198754; /* Success Green accent */
+            padding: 20px;
+            transition: transform 0.2s;
+            /* CRITICAL: Prevents cards from being split across PDF pages */
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .qa-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        .question {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+        .answer {
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.6;
+        }
+        .round-title {
+            color: #198754;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #198754;
+            padding-bottom: 10px;
+            page-break-after: avoid; /* Keeps titles attached to the first card */
+        }
+        pre {
+            background-color: #f1f3f5;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #d63384;
+        }
+        #exportBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: bold;
+        }
+        
+        /* PDF specific styles to ensure clean output */
+        .pdf-generating body {
+            background-color: white;
+            padding-bottom: 0;
+        }
+        .pdf-generating #exportBtn {
+            display: none !important;
+        }
+        .pdf-generating .qa-card {
+            box-shadow: none;
+            border: 1px solid #ddd;
+            border-left: 5px solid #198754;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="exportBtn" class="btn btn-success" onclick="exportToPDF()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf me-2" viewBox="0 0 16 16">
+            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+            <path d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
+        </svg> Export to PDF
+    </button>
+
+    <div id="content-to-export">
+        <div class="header-section">
+            <div class="container">
+                <h1>AMD VLSI Interview Q&A</h1>
+                <p class="lead mb-0">Technical Reference based on AMD_KiranKumar_CS✅.pdf[cite: 3]</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Round 1 Section -->
+            <h2 class="round-title">Round 1: Transistor Level Design & Logic</h2>
+
+            <div class="qa-card">
+                <div class="question">Q: What is VLSI, and why is there so much demand for it?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> VLSI stands for Very Large Scale Integration. It is the process of creating an integrated circuit (IC) by combining millions or billions of MOS transistors onto a single silicon chip[cite: 3]. The demand is driven by the continuous need for miniaturization, higher processing power, and lower power consumption in advanced electronics like AI accelerators, smartphones, IoT devices, and automotive systems[cite: 3].
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What are the different Transistors used in the VLSI Industry? Why move to NMOS/PMOS compared to BJT?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li>The primary transistors used are <strong>NMOS</strong> and <strong>PMOS</strong>, which together form CMOS (Complementary Metal-Oxide-Semiconductor) logic[cite: 3].</li>
+                        <li><strong>Why over BJT:</strong> BJTs (Bipolar Junction Transistors) are current-driven and dissipate static power constantly when turned on. MOSFETs are voltage-driven, offering virtually zero static power consumption (ideal for packing billions of transistors), better scalability to nanometer nodes, higher input impedance, and improved noise margins[cite: 3].</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: How do you identify the Drain and Source terminals in NMOS/PMOS?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Structurally, the Source and Drain are completely symmetric. The identification depends entirely on the applied voltages:
+                    <ul>
+                        <li><strong>NMOS:</strong> The terminal at the <em>lower</em> electrical potential acts as the Source (providing electrons).</li>
+                        <li><strong>PMOS:</strong> The terminal at the <em>higher</em> electrical potential acts as the Source (providing holes).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Explain the CMOS Inverter, its truth table, and how it is derived.[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A CMOS Inverter has a PMOS pull-up network connected to $V_{DD}$ and an NMOS pull-down network connected to GND[cite: 3]. Both gates are tied together as the input ($V_{in}$)[cite: 3].
+                    <br><br>
+                    <strong>Truth Table & Derivation:</strong>
+                    <ul>
+                        <li>If $V_{in} = 0$ (Logic 0): PMOS turns ON, NMOS turns OFF. The output node is pulled up to $V_{DD}$ (Logic 1)[cite: 3].</li>
+                        <li>If $V_{in} = 1$ (Logic 1): NMOS turns ON, PMOS turns OFF. The output node is pulled down to GND (Logic 0)[cite: 3].</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Is there any point of time in a CMOS Inverter when both transistors turn ON? What is the issue with that?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Yes, during the transition phase when the input voltage switches between 0 and 1 (specifically around $V_{in} = V_{DD}/2$), both the NMOS and PMOS operate in the saturation region[cite: 3]. 
+                    <br><strong>The Issue:</strong> This creates a direct conductive path from $V_{DD}$ to Ground, resulting in <strong>Short-Circuit Power Dissipation</strong>. This wastes energy and can cause thermal issues if input transition times (slew rates) are excessively slow[cite: 3].
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What happens if $V_{GS} = 0$? What currents flow in NMOS/PMOS? (Subthreshold & Gate Leakage)[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> When $V_{GS} = 0$, the transistor is in the cut-off region and ideally no current should flow[cite: 3]. However, in deep sub-micron nodes, two primary leakage currents occur:
+                    <ul>
+                        <li><strong>Subthreshold Leakage:</strong> A small diffusion current flows from Drain to Source through the channel because the transistor doesn't turn off completely abruptly[cite: 3].</li>
+                        <li><strong>Gate Leakage:</strong> Electrons tunnel vertically through the ultra-thin $SiO_2$ gate oxide directly from the gate to the substrate/channel, governed by Quantum Mechanical tunneling[cite: 3].</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What are Universal Gates and why are they called so?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> <strong>NAND</strong> and <strong>NOR</strong> are Universal Gates. They are called this because any fundamental logic operation (AND, OR, NOT) and consequently any complex boolean digital circuit can be implemented using <em>only</em> NAND gates or <em>only</em> NOR gates[cite: 3].
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Design an OR gate using NAND Gates.[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> By De Morgan's Law, $A + B = \overline{\overline{A} \cdot \overline{B}}$. We need three 2-input NAND gates:
+                    <ol>
+                        <li>Invert A: Tie both inputs of NAND1 to A $\rightarrow \overline{A}$</li>
+                        <li>Invert B: Tie both inputs of NAND2 to B $\rightarrow \overline{B}$</li>
+                        <li>NAND the results: Feed $\overline{A}$ and $\overline{B}$ into NAND3 $\rightarrow \overline{\overline{A} \cdot \overline{B}} = A + B$.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Design an OR gate using a 2:1 MUX.[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A 2:1 MUX follows the equation: $Out = \overline{S}I_0 + S I_1$.
+                    To make an OR gate ($A + B$):
+                    <ul>
+                        <li>Connect <strong>A</strong> to the Select line ($S = A$).</li>
+                        <li>Connect <strong>B</strong> to $I_0$.</li>
+                        <li>Connect <strong>Logic 1 ($V_{DD}$)</strong> to $I_1$.</li>
+                    </ul>
+                    Equation becomes: $Out = \overline{A}B + A(1) = \overline{A}B + A$. By Boolean simplification ($A + \overline{A}B = A + B$), this functions as an OR gate.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Jug Puzzle - I have a 2L jug and a 4L jug, how will you measure 3L?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> It is <strong>mathematically impossible</strong> to measure an odd amount (3L) using only even-capacity jugs (2L and 4L). Any combination of adding and subtracting 2 and 4 will always result in an even number (greatest common divisor of 2 and 4 is 2, and 3 is not divisible by 2).
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Jug Puzzle - I have a 2L jug and a 3L jug, now measure 4L?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Since a 3L jug and a 2L jug cannot independently hold 4L, you need a larger external vessel (or you just accumulate 4L). 
+                    Logic: Fill the 2L jug and pour it into the large vessel. Fill the 2L jug again and pour it into the vessel. Total measured = $2L + 2L = 4L$.
+                </div>
+            </div>
+
+            <!-- Round 2 Section -->
+            <h2 class="round-title">Round 2: STA & Physical Design Logic</h2>
+
+            <div class="qa-card">
+                <div class="question">Q: Draw the Setup and Hold time equations in STA. How will you find the maximum frequency?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong>
+                    <ul>
+                        <li><strong>Setup Time Equation:</strong> $T_{cq} + T_{comb\_max} + T_{setup} \le T_{clk} + T_{skew}$</li>
+                        <li><strong>Hold Time Equation:</strong> $T_{cq} + T_{comb\_min} \ge T_{hold} + T_{skew}$</li>
+                        <li><strong>Maximum Frequency ($F_{max}$):</strong> Derived from the setup equation (assuming zero skew for ideal case): 
+                            $$T_{clk\_min} = T_{cq} + T_{comb\_max} + T_{setup}$$
+                            $$F_{max} = \frac{1}{T_{clk\_min}}$$
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is a False Path in STA?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A False Path is a physical timing path present in the netlist that exists structurally but can never be logically sensitized or activated during actual functional operation[cite: 3]. Examples include paths crossed by mutually exclusive logic or static configuration registers. These must be explicitly constrained (ignored) in STA so the tool doesn't waste time optimizing a path that never switches.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is Time Borrowing? Why does it happen in Latches and not Flip-flops?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>Time Borrowing (Cycle Stealing):</strong> A technique where a slow logic stage borrows a fraction of the clock cycle time from a subsequent faster logic stage to meet timing requirements[cite: 3].</li>
+                        <li><strong>Why Latches:</strong> Latches are level-sensitive (e.g., transparent while Clock is HIGH). If data arrives slightly after the clock rises, the latch simply passes it through, effectively borrowing time from the transparency window. Flip-flops are edge-triggered and present a hard, inflexible timing boundary, capturing data only at a precise instant, making borrowing impossible[cite: 3].</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is Metastability? Why does it happen, and where are Synchronizers used?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>Metastability:</strong> An unstable state where a flip-flop's output voltage hovers between Logic 0 and Logic 1 for an unbounded amount of time before randomly resolving[cite: 3].</li>
+                        <li><strong>Why it happens:</strong> It occurs when a signal violates the Setup or Hold time windows around the clock edge, failing to give the internal feedback loop time to resolve to a stable state[cite: 3].</li>
+                        <li><strong>Synchronizers:</strong> Used primarily in Clock Domain Crossing (CDC) (transferring data between asynchronous clocks) or for external asynchronous inputs. A standard 2-flop synchronizer gives the signal a full extra clock cycle to resolve out of metastability before entering the downstream logic[cite: 3].</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: How many latches are in one flip-flop?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A standard edge-triggered flip-flop contains exactly <strong>two</strong> latches connected in series: a Master latch (transparent on one clock phase) and a Slave latch (transparent on the opposite phase)[cite: 3].
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is the DFT stage? Why do we need to test the chip after manufacturing, and how is it done?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>DFT (Design For Testability):</strong> The process of adding extra logic structures to the RTL/netlist specifically to make testing the fabricated silicon easier[cite: 3].</li>
+                        <li><strong>Why test after manufacturing:</strong> Silicon fabrication is imperfect. Dust, lithography errors, or processing defects can cause physical shorts or opens (Stuck-at-0, Stuck-at-1 faults). This is completely separate from functional bugs[cite: 3].</li>
+                        <li><strong>How it checks the chip:</strong> Functional vectors alone cannot provide high fault coverage. DFT replaces standard flops with <strong>Scan Flops</strong>, chaining them together into huge shift registers. This allows ATE (Automated Test Equipment) to shift in arbitrary test vectors, capture the combinational logic response, and shift it out for comparison. <strong>BIST (Built-In Self-Test)</strong> generates random patterns on-chip to test memory arrays (MBIST) or logic (LBIST) automatically[cite: 3].</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is Sign-off, and what checks are performed other than STA?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Sign-off is the absolute final verification phase where the layout and timing are rigorously checked against foundry rules before generating the GDSII file for tape-out[cite: 3].
+                    <br>Other than STA, checks include:
+                    <ul>
+                        <li><strong>DRC (Design Rule Check):</strong> Ensures the layout meets manufacturing spacing/width rules.</li>
+                        <li><strong>LVS (Layout vs. Schematic):</strong> Verifies the physical layout matches the intended logical netlist.</li>
+                        <li><strong>IR Drop / EM Analysis (Power Sign-off):</strong> Checks voltage drop across the power grid and ensures wires won't melt due to electromigration.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is a K-map? What does 'K' refer to, and why is it used?[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> The 'K' stands for <strong>Karnaugh</strong> Map. It is a visual/graphical method used to simplify and minimize Boolean algebraic expressions without needing complex mathematical theorems. It organizes truth table inputs into a grid based on Gray code, allowing designers to group 1s and logically eliminate redundant variables[cite: 3].
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What are Combinational and Sequential circuits? Give examples.[cite: 3]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>Combinational Circuits:</strong> The output depends <em>only</em> on the present state of the inputs. There is no memory or feedback. Example: Adders, Multiplexers, Decoders, ALU[cite: 3].</li>
+                        <li><strong>Sequential Circuits:</strong> The output depends on the present inputs <em>and</em> the past history (previous states). They contain memory elements and clocking mechanisms. Example: Flip-flops, Registers, Counters, Finite State Machines (FSMs)[cite: 3].</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script to handle PDF Export and wait for MathJax -->
+    <script>
+        function exportToPDF() {
+            // Add a class to hide the button and adjust styles
+            document.body.classList.add('pdf-generating');
+            
+            const element = document.getElementById('content-to-export');
+            
+            // html2pdf configuration optimized to prevent blank pages and set requested filename
+            const opt = {
+                margin:       [0.4, 0.4, 0.4, 0.4], // Top, Left, Bottom, Right margins in inches
+                filename:     'amd_questions.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { 
+                    scale: 2,
+                    useCORS: true,
+                    scrollY: 0
+                },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+                // Use CSS page-break rules strictly
+                pagebreak:    { mode: ['css', 'legacy'] }
+            };
+            
+            // Wait a tiny bit for MathJax to be fully done rendering SVGs if any were pending
+            setTimeout(() => {
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Remove the class to show the button again after export
+                    document.body.classList.remove('pdf-generating');
+                });
+            }, 300);
+        }
+    </script>
+</body>
+</html>
