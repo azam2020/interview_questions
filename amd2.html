@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMD Interview Experience Q&A</title>
+    <title>AMD Interview Experience Q&A (Analog & Digital)</title>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- html2pdf JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- MathJax for rendering LaTeX/Math equations -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         body {
             background-color: #f4f7f6;
@@ -29,6 +46,9 @@
             border-left: 5px solid #e74c3c;
             padding: 20px;
             transition: transform 0.2s;
+            /* CRITICAL: Prevents cards from being split across PDF pages */
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
         .qa-card:hover {
             transform: translateY(-2px);
@@ -42,7 +62,7 @@
         }
         .answer {
             font-size: 1rem;
-            color: #555;
+            color: #444;
             line-height: 1.6;
         }
         .round-title {
@@ -51,6 +71,7 @@
             margin-bottom: 20px;
             border-bottom: 2px solid #e74c3c;
             padding-bottom: 10px;
+            page-break-after: avoid; /* Keeps titles attached to the first card */
         }
         #exportBtn {
             position: fixed;
@@ -62,23 +83,37 @@
             padding: 10px 25px;
             font-weight: bold;
         }
-        /* Hide button during PDF generation */
+        
+        /* PDF specific styles to ensure clean output */
+        .pdf-generating body {
+            background-color: white;
+            padding-bottom: 0;
+        }
         .pdf-generating #exportBtn {
             display: none !important;
+        }
+        .pdf-generating .qa-card {
+            box-shadow: none;
+            border: 1px solid #ddd;
+            border-left: 5px solid #e74c3c;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
 
     <button id="exportBtn" class="btn btn-primary" onclick="exportToPDF()">
-        <i class="bi bi-file-earmark-pdf"></i> Export to PDF
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf me-2" viewBox="0 0 16 16">
+            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+            <path d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
+        </svg> Export to PDF
     </button>
 
     <div id="content-to-export">
         <div class="header-section">
             <div class="container">
                 <h1>AMD VLSI Interview Q&A</h1>
-                <p class="lead mb-0">Technical Reference based on AMD_AnkitRai_VLSI.pdf[cite: 1]</p>
+                <p class="lead mb-0">Technical Reference (Analog & Digital Design)</p>
             </div>
         </div>
 
@@ -87,7 +122,7 @@
             <h2 class="round-title">Round 1: Analog and Device Physics</h2>
 
             <div class="qa-card">
-                <div class="question">Q: Draw the CMOS inverter circuit diagram, label all its terminals, and describe the functionality of the inverter.[cite: 1]</div>
+                <div class="question">Q: Draw the CMOS inverter circuit diagram, label all its terminals, and describe the functionality of the inverter.</div>
                 <div class="answer">
                     <strong>Answer:</strong> A CMOS inverter consists of a PMOS transistor on top and an NMOS transistor on the bottom. 
                     <ul>
@@ -98,52 +133,52 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Where are the body terminals of the PMOS and NMOS connected? Why are they connected to VDD and GND respectively?[cite: 1]</div>
+                <div class="question">Q: Where are the body terminals of the PMOS and NMOS connected? Why are they connected to VDD and GND respectively?</div>
                 <div class="answer">
                     <strong>Answer:</strong> The body of a PMOS is connected to the highest potential in the circuit (VDD), and the body of an NMOS is connected to the lowest potential (GND). This is done to keep the parasitic PN junctions (formed between the Source/Drain diffusion regions and the body/substrate) strictly reverse-biased. If these junctions were forward-biased, it would cause massive leakage current and potentially trigger latch-up, destroying the device.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What happens if the PMOS body is connected to GND and the NMOS body is connected to VDD?[cite: 1]</div>
+                <div class="question">Q: What happens if the PMOS body is connected to GND and the NMOS body is connected to VDD?</div>
                 <div class="answer">
                     <strong>Answer:</strong> The PN junctions between the Source/Drain and the substrate will become heavily forward-biased. This creates a direct low-resistance path (short circuit) between the power supply and ground, resulting in enormous current flow that will permanently damage or melt the silicon chip. The logic functionality will completely fail.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What occurs if the PMOS body and NMOS body are connected to optimum values (neither VDD nor GND)?[cite: 1]</div>
+                <div class="question">Q: What occurs if the PMOS body and NMOS body are connected to optimum values (neither VDD nor GND)?</div>
                 <div class="answer">
                     <strong>Answer:</strong> Connecting the body to intermediate voltages introduces the <strong>Body Effect</strong>. 
-                    If we apply a reverse body bias (e.g., NMOS body < GND, PMOS body > VDD), the threshold voltage (V<sub>th</sub>) increases, which slows down the transistor but significantly reduces subthreshold leakage power. 
-                    If we apply a forward body bias (e.g., NMOS body > GND but less than turn-on voltage), V<sub>th</sub> decreases, making the transistor switch faster at the cost of higher leakage.
+                    If we apply a reverse body bias (e.g., NMOS body < GND, PMOS body > VDD), the threshold voltage ($V_{th}$) increases, which slows down the transistor but significantly reduces subthreshold leakage power. 
+                    If we apply a forward body bias (e.g., NMOS body > GND but less than turn-on voltage), $V_{th}$ decreases, making the transistor switch faster at the cost of higher leakage.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Draw the cross-sectional diagram of a PMOS transistor and explain all its modes of operation.[cite: 1]</div>
+                <div class="question">Q: Draw the cross-sectional diagram of a PMOS transistor and explain all its modes of operation.</div>
                 <div class="answer">
                     <strong>Answer:</strong> A PMOS is built inside an N-well placed in a P-substrate. It has heavily doped P+ regions for the Source and Drain, and an N+ contact for the N-well body terminal. Above the channel is the thin oxide and the gate terminal.
                     <ul>
-                        <li><strong>Cut-off:</strong> V<sub>GS</sub> > V<sub>TH</sub> (where V<sub>TH</sub> is negative). The channel is not formed; no current flows.</li>
-                        <li><strong>Linear (Triode):</strong> V<sub>GS</sub> < V<sub>TH</sub> and V<sub>DS</sub> > V<sub>GS</sub> - V<sub>TH</sub>. The channel acts as a continuous resistor. Current is proportional to V<sub>DS</sub>.</li>
-                        <li><strong>Saturation:</strong> V<sub>GS</sub> < V<sub>TH</sub> and V<sub>DS</sub> < V<sub>GS</sub> - V<sub>TH</sub>. The channel pinches off near the drain. Current is largely independent of V<sub>DS</sub> and depends quadratically on V<sub>GS</sub>.</li>
+                        <li><strong>Cut-off:</strong> $V_{GS} > V_{TH}$ (where $V_{TH}$ is negative). The channel is not formed; no current flows.</li>
+                        <li><strong>Linear (Triode):</strong> $V_{GS} < V_{TH}$ and $V_{DS} > V_{GS} - V_{TH}$. The channel acts as a continuous resistor. Current is proportional to $V_{DS}$.</li>
+                        <li><strong>Saturation:</strong> $V_{GS} < V_{TH}$ and $V_{DS} < V_{GS} - V_{TH}$. The channel pinches off near the drain. Current is largely independent of $V_{DS}$ and depends quadratically on $V_{GS}$.</li>
                     </ul>
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: How do you calculate the input voltage given the V<sub>DS</sub> and V<sub>TH</sub> for a PMOS transistor?[cite: 1]</div>
+                <div class="question">Q: How do you calculate the input voltage given the $V_{DS}$ and $V_{TH}$ for a PMOS transistor?</div>
                 <div class="answer">
-                    <strong>Answer:</strong> The state of the transistor (Linear vs Saturation) dictates the relationship. However, the boundary between saturation and linear regions is defined by V<sub>DS</sub> = V<sub>GS</sub> - V<sub>TH</sub>. 
-                    If operating on the edge of saturation, V<sub>GS</sub> = V<sub>DS</sub> + V<sub>TH</sub>. Since the source is usually connected to VDD, the input voltage at the gate (V<sub>G</sub>) can be found using V<sub>GS</sub> = V<sub>G</sub> - V<sub>S</sub>. Thus, V<sub>G</sub> = V<sub>GS</sub> + VDD.
+                    <strong>Answer:</strong> The state of the transistor (Linear vs Saturation) dictates the relationship. However, the boundary between saturation and linear regions is defined by $V_{DS} = V_{GS} - V_{TH}$. 
+                    If operating on the edge of saturation, $V_{GS} = V_{DS} + V_{TH}$. Since the source is usually connected to VDD, the input voltage at the gate ($V_{G}$) can be found using $V_{GS} = V_{G} - V_{S}$. Thus, $V_{G} = V_{GS} + \text{VDD}$.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What happens if NMOS and PMOS transistors are swapped in an inverter?[cite: 1]</div>
+                <div class="question">Q: What happens if NMOS and PMOS transistors are swapped in an inverter?</div>
                 <div class="answer">
-                    <strong>Answer:</strong> It functions as a very poor voltage buffer rather than an inverter. NMOS is poor at passing a logic 1 (it passes VDD - V<sub>thn</sub>), and PMOS is poor at passing a logic 0 (it passes |V<sub>thp</sub>|). If the input is 1, the NMOS turns on and pulls the output up to a degraded 1 (VDD - V<sub>th</sub>). If the input is 0, the PMOS turns on and pulls the output down to a degraded 0 (|V<sub>thp</sub>|).
+                    <strong>Answer:</strong> It functions as a very poor voltage buffer rather than an inverter. NMOS is poor at passing a logic 1 (it passes $\text{VDD} - V_{thn}$), and PMOS is poor at passing a logic 0 (it passes $|V_{thp}|$). If the input is 1, the NMOS turns on and pulls the output up to a degraded 1 ($\text{VDD} - V_{th}$). If the input is 0, the PMOS turns on and pulls the output down to a degraded 0 ($|V_{thp}|$).
                 </div>
             </div>
 
@@ -151,7 +186,7 @@
             <h2 class="round-title">Round 2: Digital and Physical Design</h2>
 
             <div class="qa-card">
-                <div class="question">Q: Explain the complete Physical design flow in detail.[cite: 1]</div>
+                <div class="question">Q: Explain the complete Physical design flow in detail.</div>
                 <div class="answer">
                     <strong>Answer:</strong> The physical design (RTL-to-GDSII) flow consists of several stages:
                     <ol>
@@ -166,21 +201,21 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What do you mean by Clock Tree Synthesis?[cite: 1]</div>
+                <div class="question">Q: What do you mean by Clock Tree Synthesis?</div>
                 <div class="answer">
                     <strong>Answer:</strong> Clock Tree Synthesis (CTS) is the process of distributing the clock signal from a clock source to all the sequential elements (like flip-flops) in the design. The primary goal is to ensure that the clock reaches all elements simultaneously, minimizing clock skew and keeping insertion delay (latency) within acceptable limits, while adhering to DRC rules.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What is STA, and at which stage of physical design is STA performed?[cite: 1]</div>
+                <div class="question">Q: What is STA, and at which stage of physical design is STA performed?</div>
                 <div class="answer">
                     <strong>Answer:</strong> Static Timing Analysis (STA) is a mathematical method of verifying the expected timing behavior (setup and hold) of a digital circuit without simulating logical functionality. STA is performed at multiple stages: Pre-layout (post-synthesis), Post-placement, Post-CTS, and Post-routing (Sign-off).
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What are setup time and hold time, and why is it important to check them?[cite: 1]</div>
+                <div class="question">Q: What are setup time and hold time, and why is it important to check them?</div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
@@ -192,25 +227,25 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What is metastability, where is it most likely to occur, and how can it be mitigated?[cite: 1]</div>
+                <div class="question">Q: What is metastability, where is it most likely to occur, and how can it be mitigated?</div>
                 <div class="answer">
                     <strong>Answer:</strong> Metastability is a state where a flip-flop's output hovers at an indeterminate voltage level (neither 0 nor 1) before eventually settling randomly. It occurs when setup or hold times are violated, most commonly in Cross-Clock Domain (CDC) crossings or when capturing asynchronous external inputs. It is mitigated by using multi-stage synchronizers (like a 2-flop synchronizer) to give the signal time to settle before entering the main logic.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What methods are used to reduce setup and hold violations?[cite: 1]</div>
+                <div class="question">Q: What methods are used to reduce setup and hold violations?</div>
                 <div class="answer">
                     <strong>Answer:</strong>
                     <ul>
-                        <li><strong>Setup Violations:</strong> Reduce combinational delay (upsize cells, use lower V<sub>th</sub> cells, logic restructuring), increase the clock period (lower frequency), or utilize positive clock skew.</li>
-                        <li><strong>Hold Violations:</strong> Increase combinational delay (insert buffers/delay cells in the data path), downsize driving cells, use higher V<sub>th</sub> cells, or utilize negative clock skew.</li>
+                        <li><strong>Setup Violations:</strong> Reduce combinational delay (upsize cells, use lower $V_{th}$ cells, logic restructuring), increase the clock period (lower frequency), or utilize positive clock skew.</li>
+                        <li><strong>Hold Violations:</strong> Increase combinational delay (insert buffers/delay cells in the data path), downsize driving cells, use higher $V_{th}$ cells, or utilize negative clock skew.</li>
                     </ul>
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What are clock skew and jitter, and what methods are used to reduce them?[cite: 1]</div>
+                <div class="question">Q: What are clock skew and jitter, and what methods are used to reduce them?</div>
                 <div class="answer">
                     <strong>Answer:</strong>
                     <ul>
@@ -221,26 +256,26 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Write the equations for setup time and hold time. What happens if a delay is added in the clock path of the capture flip-flop (Positive Skew)?[cite: 1]</div>
+                <div class="question">Q: Write the equations for setup time and hold time. What happens if a delay is added in the clock path of the capture flip-flop (Positive Skew)?</div>
                 <div class="answer">
                     <strong>Answer:</strong>
                     <ul>
-                        <li><strong>Setup Equation:</strong> T<sub>cq</sub> + T<sub>comb</sub> + T<sub>setup</sub> &le; T<sub>clk</sub> + T<sub>skew</sub></li>
-                        <li><strong>Hold Equation:</strong> T<sub>cq</sub> + T<sub>comb</sub> &ge; T<sub>hold</sub> + T<sub>skew</sub></li>
+                        <li><strong>Setup Equation:</strong> $T_{cq} + T_{comb} + T_{setup} \le T_{clk} + T_{skew}$</li>
+                        <li><strong>Hold Equation:</strong> $T_{cq} + T_{comb} \ge T_{hold} + T_{skew}$</li>
                     </ul>
-                    Adding delay to the capture clock path creates <strong>Positive Skew</strong>. This relaxes the setup time requirement, allowing the circuit to run at a higher speed (smaller T<sub>clk</sub>). However, it severely degrades the hold margin, making the circuit susceptible to hold violations which can cause immediate functional failure.
+                    Adding delay to the capture clock path creates <strong>Positive Skew</strong>. This relaxes the setup time requirement, allowing the circuit to run at a higher speed (smaller $T_{clk}$). However, it severely degrades the hold margin, making the circuit susceptible to hold violations which can cause immediate functional failure.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Draw the CMOS circuit diagram of a 3-input NOR gate.[cite: 1]</div>
+                <div class="question">Q: Draw the CMOS circuit diagram of a 3-input NOR gate.</div>
                 <div class="answer">
                     <strong>Answer:</strong> A 3-input NOR gate consists of a pull-up network and a pull-down network. The pull-up network has three PMOS transistors connected in series between VDD and the output node. The pull-down network has three NMOS transistors connected in parallel between the output node and GND. Each input (A, B, C) drives one PMOS and one NMOS pair.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Explain the regions of operation for both NMOS and PMOS transistors in a complete VTC curve.[cite: 1]</div>
+                <div class="question">Q: Explain the regions of operation for both NMOS and PMOS transistors in a complete VTC curve.</div>
                 <div class="answer">
                     <strong>Answer:</strong> In the Voltage Transfer Characteristic (VTC) curve of a CMOS inverter:
                     <ul>
@@ -254,15 +289,15 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Explain Noise Margin, 2nd-order effects (Body Effect, CLM, Subthreshold leakage, Temp effect), Latch-up, Electromigration, and Antenna Effect.[cite: 1]</div>
+                <div class="question">Q: Explain Noise Margin, 2nd-order effects (Body Effect, CLM, Subthreshold leakage, Temp effect), Latch-up, Electromigration, and Antenna Effect.</div>
                 <div class="answer">
                     <strong>Answer:</strong>
                     <ul>
                         <li><strong>Noise Margin:</strong> The maximum noise voltage that can be added to an input signal without causing the output to change logical state incorrectly.</li>
-                        <li><strong>Body Effect:</strong> The change in transistor threshold voltage (V<sub>th</sub>) due to a voltage difference between the source and the body.</li>
-                        <li><strong>Channel Length Modulation (CLM):</strong> In saturation, as V<sub>DS</sub> increases, the effective channel length decreases, causing drain current to slightly increase rather than remain perfectly constant.</li>
-                        <li><strong>Subthreshold Leakage:</strong> Current that flows between source and drain even when V<sub>GS</sub> < V<sub>th</sub>. Minimized by multi-Vt libraries and power gating.</li>
-                        <li><strong>Temp Effect on Vth:</strong> As temperature increases, V<sub>th</sub> decreases (lowering threshold margin), but carrier mobility also decreases.</li>
+                        <li><strong>Body Effect:</strong> The change in transistor threshold voltage ($V_{th}$) due to a voltage difference between the source and the body.</li>
+                        <li><strong>Channel Length Modulation (CLM):</strong> In saturation, as $V_{DS}$ increases, the effective channel length decreases, causing drain current to slightly increase rather than remain perfectly constant.</li>
+                        <li><strong>Subthreshold Leakage:</strong> Current that flows between source and drain even when $V_{GS} < V_{th}$. Minimized by multi-$V_{th}$ libraries and power gating.</li>
+                        <li><strong>Temp Effect on $V_{th}$:</strong> As temperature increases, $V_{th}$ decreases (lowering threshold margin), but carrier mobility also decreases.</li>
                         <li><strong>Latch-up:</strong> The unintended creation of a low-impedance path between power supply rails caused by parasitic BJTs forming a thyristor. Prevented using guard rings and tap cells.</li>
                         <li><strong>Electromigration:</strong> The gradual displacement of metal atoms in interconnects caused by high current densities (electron wind), leading to voids or hillocks. Prevented by using wider metal lines and avoiding 90-degree corners.</li>
                         <li><strong>Antenna Effect:</strong> Charge accumulation on floating metal interconnects during plasma etching, which can break down the thin gate oxide. Prevented by using antenna diodes or metal jumping (routing on higher layers).</li>
@@ -271,40 +306,52 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Which is more critical, a setup violation or a hold violation, and how can a setup violation be resolved after chip fabrication?[cite: 1]</div>
+                <div class="question">Q: Which is more critical, a setup violation or a hold violation, and how can a setup violation be resolved after chip fabrication?</div>
                 <div class="answer">
                     <strong>Answer:</strong> A <strong>Hold Violation</strong> is much more critical because it is frequency-independent; if a hold violation exists, the chip will fail at any clock speed. A <strong>Setup Violation</strong> can be resolved after fabrication by simply reducing the clock frequency (running the chip slower) or by slightly increasing the operating voltage (VDD) to speed up the transistors.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What is temperature inversion, and in what way does temperature influence the reduction of setup and hold violations after fabrication?[cite: 1]</div>
+                <div class="question">Q: What is temperature inversion, and in what way does temperature influence the reduction of setup and hold violations after fabrication?</div>
                 <div class="answer">
-                    <strong>Answer:</strong> <strong>Temperature Inversion</strong> is a phenomenon observed in advanced technology nodes (sub-65nm). Traditionally, higher temperatures slow down transistors due to reduced mobility. However, at lower VDDs in advanced nodes, the decrease in threshold voltage (V<sub>th</sub>) at higher temperatures dominates the mobility degradation, making the transistor actually <em>faster</em> at higher temperatures. 
+                    <strong>Answer:</strong> <strong>Temperature Inversion</strong> is a phenomenon observed in advanced technology nodes (sub-65nm). Traditionally, higher temperatures slow down transistors due to reduced mobility. However, at lower VDDs in advanced nodes, the decrease in threshold voltage ($V_{th}$) at higher temperatures dominates the mobility degradation, making the transistor actually <em>faster</em> at higher temperatures. 
                     Consequently, worst-case setup delays might happen at cold temperatures, and worst-case hold violations might happen at hot temperatures, completely inverting traditional timing analysis logic. Adjusting operating temperature post-fabrication can thus dynamically impact setup/hold margins depending on the VDD and node size.
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Script to handle PDF Export and wait for MathJax -->
     <script>
         function exportToPDF() {
-            // Add a class to hide the button during generation
+            // Add a class to hide the button and adjust styles
             document.body.classList.add('pdf-generating');
             
             const element = document.getElementById('content-to-export');
+            
+            // html2pdf configuration optimized to prevent blank pages and set requested filename
             const opt = {
-                margin:       0.5,
-                filename:     'AMD_Interview_QA.pdf',
+                margin:       [0.4, 0.4, 0.4, 0.4], // Top, Left, Bottom, Right margins in inches
+                filename:     'amd_questions.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                html2canvas:  { 
+                    scale: 2,
+                    useCORS: true,
+                    scrollY: 0
+                },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+                // Use CSS page-break rules strictly
+                pagebreak:    { mode: ['css', 'legacy'] }
             };
             
-            html2pdf().set(opt).from(element).save().then(() => {
-                // Remove the class to show the button again
-                document.body.classList.remove('pdf-generating');
-            });
+            // Wait a tiny bit for MathJax to be fully done rendering SVGs if any were pending
+            setTimeout(() => {
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Remove the class to show the button again after export
+                    document.body.classList.remove('pdf-generating');
+                });
+            }, 300);
         }
     </script>
 </body>
