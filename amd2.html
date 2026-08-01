@@ -1,399 +1,155 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VLSI & Digital Electronics Revision Guide</title>
-    
+    <title>AMD Interview Questions & Answers</title>
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- Highlight.js Theme for Code Blocks -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- html2pdf.js for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
-        }
-        .navbar {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .sidebar {
-            height: calc(100vh - 70px);
-            position: sticky;
-            top: 70px;
-            overflow-y: auto;
-            padding-top: 20px;
-            border-right: 1px solid var(--bs-border-color);
-        }
-        .nav-pills .nav-link {
-            color: var(--bs-body-color);
-            border-radius: 6px;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-        .nav-pills .nav-link.active {
-            background-color: #0d6efd;
-            color: white;
-        }
-        .qa-card {
-            margin-bottom: 2rem;
-            border: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-radius: 10px;
-            scroll-margin-top: 80px;
-        }
-        .qa-question {
-            background-color: var(--bs-tertiary-bg);
-            border-bottom: 2px solid #0d6efd;
-            font-weight: 600;
-            padding: 1.25rem;
-            border-radius: 10px 10px 0 0;
-            font-Here is the complete, professional, and fully self-contained HTML file containing your entire revision thread on VLSI and Electrical Engineering topics. 
-
-It is built using **Bootstrap 5** for a responsive layout and includes custom **JavaScript** for a real-time search filter, smooth scrolling sidebar navigation, and a Dark/Light mode toggle. 
-
-Save the following code as `index.html` and you can host it directly on GitHub Pages.
-
-```html
-<!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VLSI & EE Revision Guide</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="[https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css](https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css)" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css)">
-
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
-        }
-        .navbar {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .sidebar {
-            height: calc(100vh - 70px);
-            position: sticky;
-            top: 70px;
-            overflow-y: auto;
-            padding-top: 20px;
-            border-right: 1px solid var(--bs-border-color);
-        }
-        .nav-pills .nav-link {
-            color: var(--bs-body-color);
-            border-radius: 6px;
-            margin-bottom: 5px;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-        }
-        .nav-pills .nav-link:hover {
-            background-color: var(--bs-secondary-bg);
-        }
-        .nav-pills .nav-link.active {
-            background-color: #0d6efd;
-            color: white;
-        }
-        .qa-card {
-            margin-bottom: 2rem;
-            border: 1px solid var(--bs-border-color);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-radius: 10px;
-            scroll-margin-top: 90px;
-            transition: transform 0.2s;
-        }
-        .qa-card:hover {
-            transform: translateY(-2px);
-        }
-        .qa-question {
-            background-color: var(--bs-tertiary-bg);
-            border-bottom: 2px solid #0d6efd;
-            font-weight: 600;
-            padding: 1.25rem;
-            border-radius: 10px 10px 0 0;
-            font-size: 1.1rem;
-        }
-        .qa-answer {
-            padding: 1.5rem;
-            background-color: var(--bs-body-bg);
-            border-radius: 0 0 10px 10px;
-            line-height: 1.7;
-        }
-        .badge-tag {
-            font-size: 0.8rem;
-            margin-right: 5px;
-        }
-        .math-block {
-            background: var(--bs-secondary-bg);
-            padding: 15px;
-            border-radius: 6px;
-            font-family: monospace;
-            overflow-x: auto;
-        }
-        
-        /* Theme toggle animation */
-        #themeToggle {
-            transition: transform 0.3s;
-        }
-        #themeToggle:active {
-            transform: scale(0.9);
-        }
+        body { background-color: #f8f9fa; padding-bottom: 50px; }
+        .card-header { font-weight: bold; background-color: #e9ecef; }
+        .question { font-weight: 600; color: #0d6efd; margin-top: 15px; }
+        .answer { margin-bottom: 20px; padding-left: 15px; border-left: 3px solid #dee2e6; }
+        #content-to-export { background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     </style>
 </head>
-<body data-bs-spy="scroll" data-bs-target="#sidebar-nav" data-bs-offset="100" tabindex="0">
+<body>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand" href="#"><i class="fa-solid fa-microchip me-2"></i> EE & VLSI Revision Hub</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <div class="ms-auto d-flex align-items-center">
-                    <div class="input-group me-3" style="max-width: 300px;">
-                        <span class="input-group-text bg-light border-0"><i class="fa-solid fa-search"></i></span>
-                        <input type="text" id="searchInput" class="form-control border-0" placeholder="Search topics...">
-                    </div>
-                    <button class="btn btn-outline-light rounded-circle" id="themeToggle" title="Toggle Dark/Light Mode">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar Navigation -->
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-body">
-                <div class="position-sticky">
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-2 text-muted text-uppercase">
-                        <span>Topics</span>
-                    </h6>
-                    <ul class="nav nav-pills flex-column px-2 mb-auto" id="sidebar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#q1">Electromigration</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#q2">CMOS Power Dissipation</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#q3">PMOS & NMOS Sizing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#q4">Propagation Delay</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#q5">Phase-Locked Loops (PLL)</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#q6">Attenuator Networks</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-5 py-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
-                    <h1 class="h2">Thread Q&A Summary</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
-                            <i class="fa-solid fa-print me-1"></i> Export PDF
-                        </button>
-                    </div>
-                </div>
-
-                <div id="qa-container">
-                    
-                    <!-- Question 1 -->
-                    <div class="card qa-card" id="q1">
-                        <div class="qa-question">
-                            <i class="fa-solid fa-circle-question text-primary me-2"></i>
-                            What is electromigration, and what are its effects in semiconductors?
-                        </div>
-                        <div class="qa-answer">
-                            <span class="badge bg-primary badge-tag mb-3">Semiconductor Physics</span>
-                            <span class="badge bg-secondary badge-tag mb-3">Reliability</span>
-                            <p><strong>Definition:</strong> Electromigration is the gradual displacement of metal atoms in a semiconductor's interconnects. It is caused by the momentum transfer from conducting electrons moving through the lattice to the metal ions themselves.</p>
-                            <p><strong>Effects:</strong> Over time, this atomic movement degrades the interconnects, causing two main failure modes:</p>
-                            <ul>
-                                <li><strong>Voids:</strong> The depletion of metal atoms creates gaps, leading to increased resistance and eventual open circuits.</li>
-                                <li><strong>Hillocks:</strong> The accumulation of displaced atoms creates extrusions, which can breach dielectric layers and cause short circuits between adjacent wires.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Question 2 -->
-                    <div class="card qa-card" id="q2">
-                        <div class="qa-question">
-                            <i class="fa-solid fa-circle-question text-primary me-2"></i>
-                            What are the types of CMOS power dissipation, and how can they be reduced?
-                        </div>
-                        <div class="qa-answer">
-                            <span class="badge bg-primary badge-tag mb-3">CMOS Design</span>
-                            <span class="badge bg-secondary badge-tag mb-3">Low Power VLSI</span>
-                            <p>There are three main components of power dissipation in CMOS circuits:</p>
-                            <ol>
-                                <li><strong>Dynamic Power:</strong> Consumed during transistor switching when charging and discharging parasitic capacitances. 
-                                    <br><em>Reduction Techniques:</em> Voltage scaling (lowering Vdd since power scales quadratically with voltage), clock gating, and reducing physical capacitance.</li>
-                                <li><strong>Short-Circuit Power:</strong> Dissipated during the brief moment when both NMOS and PMOS networks are partially ON, creating a direct path from Vdd to Ground.
-                                    <br><em>Reduction Techniques:</em> Matching the rise and fall times of the input signals to keep the transition window as narrow as possible.</li>
-                                <li><strong>Leakage (Static) Power:</strong> Power consumed when the circuit is completely idle, caused by subthreshold leakage and gate oxide tunneling.
-                                    <br><em>Reduction Techniques:</em> Power gating (shutting off power to idle blocks) and using high-Vt (threshold voltage) transistors in non-critical paths.</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <!-- Question 3 -->
-                    <div class="card qa-card" id="q3">
-                        <div class="qa-question">
-                            <i class="fa-solid fa-circle-question text-primary me-2"></i>
-                            How are PMOS and NMOS sized for standard inverters?
-                        </div>
-                        <div class="qa-answer">
-                            <span class="badge bg-primary badge-tag mb-3">Digital Logic</span>
-                            <span class="badge bg-secondary badge-tag mb-3">Transistor Sizing</span>
-                            <p>To achieve a symmetrical inverter (where the rise time equals the fall time and the switching threshold is exactly Vdd/2), the PMOS and NMOS transistors cannot be identically sized.</p>
-                            <p>Because the mobility of holes (charge carriers in PMOS) in silicon is roughly half to one-third the mobility of electrons (charge carriers in NMOS), the PMOS transistor must be made wider to compensate.</p>
-                            <div class="math-block">
-                                W<sub>p</sub> &approx; (2 to 3) &times; W<sub>n</sub>
-                            </div>
-                            <p class="mt-3">This sizing ensures that both the pull-up network (PMOS) and the pull-down network (NMOS) provide equal current drive capability.</p>
-                        </div>
-                    </div>
-
-                    <!-- Question 4 -->
-                    <div class="card qa-card" id="q4">
-                        <div class="qa-question">
-                            <i class="fa-solid fa-circle-question text-primary me-2"></i>
-                            How is propagation delay estimated in digital circuits?
-                        </div>
-                        <div class="qa-answer">
-                            <span class="badge bg-primary badge-tag mb-3">Timing Analysis</span>
-                            <p>Propagation delay (t<sub>p</sub>) measures how quickly a circuit responds to input changes. It is officially defined as the time difference between the input crossing 50% of its voltage swing and the output crossing 50% of its voltage swing.</p>
-                            <p>It is typically calculated as the average of two distinct transitions:</p>
-                            <ul>
-                                <li><strong>t<sub>pHL</sub>:</strong> Time for the output to transition from High to Low.</li>
-                                <li><strong>t<sub>pLH</sub>:</strong> Time for the output to transition from Low to High.</li>
-                            </ul>
-                            <div class="math-block">
-                                t<sub>p</sub> = (t<sub>pHL</sub> + t<sub>pLH</sub>) / 2
-                            </div>
-                            <p class="mt-3">In initial design phases, engineers use the <strong>Elmore Delay model</strong> (RC network approximations) or the method of <strong>Logical Effort</strong> to estimate these delays without running full SPICE simulations.</p>
-                        </div>
-                    </div>
-
-                    <!-- Question 5 -->
-                    <div class="card qa-card" id="q5">
-                        <div class="qa-question">
-                            <i class="fa-solid fa-circle-question text-primary me-2"></i>
-                            What is the function of a Phase-Locked Loop (PLL)?
-                        </div>
-                        <div class="qa-answer">
-                            <span class="badge bg-primary badge-tag mb-3">Analog Design</span>
-                            <span class="badge bg-secondary badge-tag mb-3">Clock Generation</span>
-                            <p>A Phase-Locked Loop (PLL) is an electronic feedback control system designed to generate an output signal whose phase (and consequently frequency) is strictly locked to the phase of an input reference signal.</p>
-                            <p><strong>Core Components:</strong></p>
-                            <ul>
-                                <li>Phase Detector (PD)</li>
-                                <li>Low-Pass Filter (LPF)</li>
-                                <li>Voltage-Controlled Oscillator (VCO)</li>
-                            </ul>
-                            <p><strong>Main Functions in Engineering:</strong> Clock generation, frequency synthesis (multiplying a slow crystal oscillator clock into a high-speed CPU clock), clock recovery in data communication, and signal jitter reduction.</p>
-                        </div>
-                    </div>
-
-                    <!-- Question 6 -->
-                    <div class="card qa-card" id="q6">
-                        <div class="qa-question">
-                            <i class="fa-solid fa-circle-question text-primary me-2"></i>
-                            How do you calculate resistances for attenuator networks?
-                        </div>
-                        <div class="qa-answer">
-                            <span class="badge bg-primary badge-tag mb-3">Circuit Analysis</span>
-                            <span class="badge bg-secondary badge-tag mb-3">RF Engineering</span>
-                            <p>Attenuators (such as T-pads and Pi-pads) are passive resistor networks used to reduce signal power by a specific amount while keeping the input and output impedances matched to the characteristic impedance (Z<sub>0</sub>) of the system.</p>
-                            <p>To calculate the resistor values, you first convert the desired attenuation in decibels (dB) into a linear voltage/current ratio factor (K):</p>
-                            <div class="math-block mb-3">
-                                K = 10<sup>(dB / 20)</sup>
-                            </div>
-                            <p>For a symmetrical <strong>T-Pad network</strong>, the resistor equations are:</p>
-                            <div class="math-block">
-                                R1 = R2 = Z<sub>0</sub> &times; [ (K - 1) / (K + 1) ]<br>
-                                R3 (shunt) = Z<sub>0</sub> &times; [ (2 &times; K) / (K<sup>2</sup> - 1) ]
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </main>
-        </div>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>AMD VLSI & CS Interview Prep Guide</h2>
+        <button class="btn btn-danger" onclick="generatePDF()">Export to PDF</button>
     </div>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="[https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js](https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js)"></script>
-    
-    <!-- Custom Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Dark/Light Mode Toggle
-            const themeToggleBtn = document.getElementById('themeToggle');
-            const html = document.documentElement;
-            const icon = themeToggleBtn.querySelector('i');
+    <div id="content-to-export">
+        <!-- Section 1: Device Physics & CMOS -->
+        <div class="card mb-4">
+            <div class="card-header">1. Device Physics & CMOS Basics</div>
+            <div class="card-body">
+                <div class="question">Q: What is a MOSFET? What is Threshold Voltage? How can you vary it?</div>
+                <div class="answer">A MOSFET (Metal-Oxide-Semiconductor Field-Effect Transistor) is a semiconductor device used to switch or amplify electrical signals. Threshold voltage (Vth) is the minimum gate-to-source voltage needed to create a conducting channel between the source and drain. It can be varied using body biasing (changing the bulk voltage), changing the oxide thickness, or altering the channel doping concentration.</div>
 
-            themeToggleBtn.addEventListener('click', function() {
-                const currentTheme = html.getAttribute('data-bs-theme');
-                if (currentTheme === 'light') {
-                    html.setAttribute('data-bs-theme', 'dark');
-                    icon.classList.remove('fa-moon');
-                    icon.classList.add('fa-sun');
-                } else {
-                    html.setAttribute('data-bs-theme', 'light');
-                    icon.classList.remove('fa-sun');
-                    icon.classList.add('fa-moon');
-                }
-            });
+                <div class="question">Q: Explain the different regions of operation in a MOSFET.</div>
+                <div class="answer">1. Cutoff: Vgs &lt; Vth. No channel exists; transistor is OFF. <br>2. Linear (Triode): Vgs &gt; Vth and Vds &lt; Vgs - Vth. Acts as a voltage-controlled resistor. <br>3. Saturation: Vgs &gt; Vth and Vds &ge; Vgs - Vth. Current becomes nearly constant; used for amplification and as a closed switch.</div>
 
-            // Real-time Search Filter
-            const searchInput = document.getElementById('searchInput');
-            const qaCards = document.querySelectorAll('.qa-card');
-            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+                <div class="question">Q: Where are the body terminals of PMOS and NMOS connected and why? What if they are swapped?</div>
+                <div class="answer">The PMOS body is connected to VDD (highest potential) and the NMOS body to GND (lowest potential) to ensure the parasitic PN junctions between the substrate and the source/drain remain reverse-biased. If swapped, these junctions become forward-biased, causing massive short-circuit currents leading to a destructive condition known as Latch-up.</div>
 
-            searchInput.addEventListener('input', function() {
-                const query = this.value.toLowerCase();
-                
-                qaCards.forEach((card, index) => {
-                    const text = card.textContent.toLowerCase();
-                    const navLink = navLinks[index];
-                    
-                    if (text.includes(query)) {
-                        card.style.display = 'block';
-                        navLink.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                        navLink.style.display = 'none';
-                    }
-                });
-            });
+                <div class="question">Q: What is Channel Length Modulation (CLM)?</div>
+                <div class="answer">As Vds increases beyond saturation (Vds &gt; Vgs - Vth), the effective channel length decreases because the pinch-off point moves towards the source. This causes the drain current to increase slightly rather than staying perfectly constant. It affects the output resistance of the transistor.</div>
 
-            // Smooth scrolling for sidebar links
-            document.querySelectorAll('a.nav-link').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        });
-    </script>
+                <div class="question">Q: Explain Latch-up, Electromigration, and Antenna Effect. How are they prevented?</div>
+                <div class="answer">
+                    <ul>
+                        <li><b>Latch-up:</b> The creation of a low-impedance path between VDD and GND due to parasitic BJTs turning on. <i>Prevention:</i> Tap cells, guard rings.</li>
+                        <li><b>Electromigration:</b> The gradual displacement of metal atoms in a conductor due to high current density, causing opens or shorts. <i>Prevention:</i> Widening metal traces, reducing current density, using via arrays.</li>
+                        <li><b>Antenna Effect:</b> Charge accumulation on long metal interconnects during plasma etching, which can damage the thin gate oxide. <i>Prevention:</i> Inserting jumper metals (routing to a higher metal layer) or placing reverse-biased antenna diodes.</li>
+                    </ul>
+                </div>
+
+                <div class="question">Q: What is Noise Margin?</div>
+                <div class="answer">Noise margin is the maximum amount of noise (voltage spike or drop) that can be added to an input signal without causing the gate to output an incorrect logic level. It guarantees the reliability of digital circuits.</div>
+            </div>
+        </div>
+
+        <!-- Section 2: Digital Logic & Timing (STA) -->
+        <div class="card mb-4">
+            <div class="card-header">2. Digital Logic & Static Timing Analysis (STA)</div>
+            <div class="card-body">
+                <div class="question">Q: What is STA? Why and where is it performed?</div>
+                <div class="answer">Static Timing Analysis is a method to validate the timing performance of a design by checking all paths for timing violations (Setup and Hold) without simulating the dynamic behavior. It is performed at multiple stages: after logic synthesis, after placement, and after routing (post-CTS).</div>
+
+                <div class="question">Q: What are Setup and Hold time? Why are they important?</div>
+                <div class="answer"><b>Setup Time:</b> The minimum time the data must be stable <i>before</i> the active clock edge. <b>Hold Time:</b> The minimum time the data must be stable <i>after</i> the active clock edge. They ensure the flip-flop reliably captures the correct data without entering metastability.</div>
+
+                <div class="question">Q: How do you fix Setup and Hold violations? Which is more critical?</div>
+                <div class="answer">
+                    <b>Setup fixes:</b> Upsize gates (drive strength), use Low-Vth cells, reduce combinational logic depth, logic restructuring. <br>
+                    <b>Hold fixes:</b> Add buffers/delay cells in the data path, downsize gates. <br>
+                    <b>Criticality:</b> Hold violations are more critical because they are independent of clock frequency; if a hold violation exists, the chip will fail regardless of how much you slow down the clock.
+                </div>
+
+                <div class="question">Q: What is Metastability?</div>
+                <div class="answer">If setup or hold times are violated, the flip-flop's internal nodes may hover at an intermediate voltage level (neither 0 nor 1) for an unpredictable amount of time before resolving. This can corrupt downstream logic. Mitigated using multi-stage synchronizers.</div>
+
+                <div class="question">Q: Explain Clock Tree Synthesis (CTS), Skew, and Jitter.</div>
+                <div class="answer"><b>CTS:</b> The process of distributing the clock signal to all sequential elements while minimizing skew and insertion delay. <b>Skew:</b> The spatial variation in clock arrival time at different flip-flops. (Local skew = between adjacent FFs; Global skew = max difference across the entire chip). <b>Jitter:</b> The temporal (time-based) variation of the clock period from its ideal value.</div>
+
+                <div class="question">Q: Setup and Hold Equations with Clock Skew (FF1 to FF2)</div>
+                <div class="answer">
+                    Setup: T_clk &ge; T_cq + T_comb + T_setup - T_skew (Positive skew helps setup time).<br>
+                    Hold: T_cq + T_comb &ge; T_hold + T_skew (Positive skew degrades hold time).
+                </div>
+
+                <div class="question">Q: What is Latch / Time Borrowing?</div>
+                <div class="answer">Because latches are level-sensitive (transparent for half the clock cycle), if data arrives slightly late, it can still pass through during the transparent window. This essentially "borrows" time from the next logic stage, offering flexibility in timing closure compared to strict edge-triggered flip-flops.</div>
+            </div>
+        </div>
+
+        <!-- Section 3: Verilog & Design -->
+        <div class="card mb-4">
+            <div class="card-header">3. Verilog & Digital Design</div>
+            <div class="card-body">
+                <div class="question">Q: Write Verilog code for a D flip-flop with an asynchronous active-low reset.</div>
+                <div class="answer">
+<pre class="bg-light p-2 border">
+module dff (input clk, input rst_n, input d, output reg q);
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            q &lt;= 1'b0;
+        else
+            q &lt;= d;
+    end
+endmodule
+</pre>
+                </div>
+
+                <div class="question">Q: Difference between Synchronous and Asynchronous Reset (Synthesis impact)?</div>
+                <div class="answer">
+                    <b>Asynchronous:</b> Resets immediately regardless of the clock. Synthesizes to the dedicated reset pin of a flip-flop. (Included in the sensitivity list). <br>
+                    <b>Synchronous:</b> Resets only on the active clock edge. Synthesizes as combinational logic (a mux) feeding into the D-pin of the flip-flop.
+                </div>
+
+                <div class="question">Q: FSM: Mealy vs Moore Machines</div>
+                <div class="answer"><b>Moore:</b> Output depends ONLY on the current state. Safer, but generally requires more states. <b>Mealy:</b> Output depends on current state AND current inputs. Reacts faster (asynchronous outputs), requires fewer states, but can cause glitches if inputs change mid-cycle.</div>
+            </div>
+        </div>
+
+        <!-- Section 4: Puzzles -->
+        <div class="card mb-4">
+            <div class="card-header">4. Puzzles</div>
+            <div class="card-body">
+                <div class="question">Q: 4 people (A=1m, B=2m, C=7m, D=10m) cross a bridge at night with 1 torch. Max 2 at a time. Minimum time?</div>
+                <div class="answer">17 minutes. <br>
+                1. A and B cross (2 mins). <br>
+                2. A returns with torch (1 min). <br>
+                3. C and D cross (10 mins). <br>
+                4. B returns with torch (2 mins). <br>
+                5. A and B cross (2 mins). <br>
+                Total: 2 + 1 + 10 + 2 + 2 = 17 mins.</div>
+
+                <div class="question">Q: 1000 bottles, 1 is poisonous. Find it using 10 rats.</div>
+                <div class="answer">Use binary representation. Label the bottles 1 to 1000. 10 rats represent the 10 bit positions (2^10 = 1024, which is &gt; 1000). For each bottle, convert its number to binary. If the nth bit is 1, feed a drop from that bottle to the nth rat. After the poison takes effect, the dead rats will represent the binary bits that are '1'. Convert that binary number back to decimal to find the exact poisonous bottle.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function generatePDF() {
+        const element = document.getElementById('content-to-export');
+        const opt = {
+            margin:       0.5,
+            filename:     'AMD_Interview_Prep.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    }
+</script>
 </body>
 </html>
