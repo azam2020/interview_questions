@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMD Interview Experience Q&A</title>
+    <title>AMD Interview Experience Q&A (Bhavana CS)</title>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- html2pdf JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- MathJax for rendering LaTeX/Math equations -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         body {
             background-color: #f4f7f6;
@@ -29,6 +46,9 @@
             border-left: 5px solid #0078d7;
             padding: 20px;
             transition: transform 0.2s;
+            /* CRITICAL: Prevents cards from being split across PDF pages, eliminating awkward blank spaces */
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
         .qa-card:hover {
             transform: translateY(-2px);
@@ -51,6 +71,7 @@
             margin-bottom: 20px;
             border-bottom: 2px solid #0078d7;
             padding-bottom: 10px;
+            page-break-after: avoid; /* Keeps titles attached to the first card */
         }
         pre {
             background-color: #f8f9fa;
@@ -73,22 +94,37 @@
             padding: 10px 25px;
             font-weight: bold;
         }
+        
+        /* PDF specific styles to ensure clean output */
+        .pdf-generating body {
+            background-color: white;
+            padding-bottom: 0;
+        }
         .pdf-generating #exportBtn {
             display: none !important;
+        }
+        .pdf-generating .qa-card {
+            box-shadow: none;
+            border: 1px solid #ddd;
+            border-left: 5px solid #0078d7;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
 
     <button id="exportBtn" class="btn btn-primary" onclick="exportToPDF()">
-        <i class="bi bi-file-earmark-pdf"></i> Export to PDF
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf me-2" viewBox="0 0 16 16">
+            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+            <path d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
+        </svg> Export to PDF
     </button>
 
     <div id="content-to-export">
         <div class="header-section">
             <div class="container">
                 <h1>AMD VLSI/CS Interview Q&A</h1>
-                <p class="lead mb-0">Technical Reference based on AMD_Bhavana_CS✅.pdf</p>
+                <p class="lead mb-0">Technical Reference (Bhavana CS)</p>
             </div>
         </div>
 
@@ -146,7 +182,7 @@
                 <div class="answer">
                     <strong>Answer:</strong> Power dissipation in CMOS has three main components:
                     <ol>
-                        <li><strong>Dynamic Power ($P = \alpha C V^2 f$):</strong> Due to charging/discharging load capacitors. <em>Avoid by:</em> Clock gating, lowering VDD, minimizing load capacitance, and reducing switching activity.</li>
+                        <li><strong>Dynamic Power ($P = \alpha \cdot C \cdot V^2 \cdot f$):</strong> Due to charging/discharging load capacitors. <em>Avoid by:</em> Clock gating, lowering VDD, minimizing load capacitance, and reducing switching activity ($\alpha$).</li>
                         <li><strong>Short-Circuit Power:</strong> Dissipated when both NMOS and PMOS are briefly ON during signal transitions. <em>Avoid by:</em> Ensuring fast input transition times (good slew rates).</li>
                         <li><strong>Static/Leakage Power:</strong> Subthreshold and gate-oxide leakage when the transistor is OFF. <em>Avoid by:</em> Multi-$V_{th}$ libraries, power gating (shutting off power to inactive blocks), and reverse body biasing.</li>
                     </ol>
@@ -156,12 +192,12 @@
             <div class="qa-card">
                 <div class="question">Q: How do you build an Inverter using a NAND gate?</div>
                 <div class="answer">
-                    <strong>Answer:</strong> A 2-input NAND gate gives the logic output $\overline{A \cdot B}$. To configure it as an inverter, simply tie both inputs together (A = B). The output becomes $\overline{A \cdot A} = \overline{A}$.
+                    <strong>Answer:</strong> A 2-input NAND gate gives the logic output $\overline{A \cdot B}$. To configure it as an inverter, simply tie both inputs together ($A = B$). The output becomes $\overline{A \cdot A} = \overline{A}$.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Explain Low Vth cells vs High Vth cells. Which has more delay?</div>
+                <div class="question">Q: Explain Low $V_{th}$ cells vs High $V_{th}$ cells. Which has more delay?</div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
@@ -172,7 +208,7 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: If a duty cycle changes from 50% at point A to 40% at point B in a combinational circuit, what is the reason? (Duty Cycle Distortion)</div>
+                <div class="question">Q: If a duty cycle changes from 50% at point A to 40% at point B in a combinational circuit, what is the reason?</div>
                 <div class="answer">
                     <strong>Answer:</strong> This is called <strong>Duty Cycle Distortion (DCD)</strong>. It occurs because the pull-up network (rise time delay) and pull-down network (fall time delay) in the combinational circuit are not perfectly balanced. If a gate falls faster than it rises, the pulse width (Logic 1 duration) shrinks as it propagates, altering the 50% duty cycle to a skewed value like 40%. Other reasons include $V_{th}$ variations, uneven clock buffer sizing, and power supply noise.
                 </div>
@@ -188,7 +224,7 @@
             <div class="qa-card">
                 <div class="question">Q: 50 Buffers or 50 Inverters? Which one is better and why?</div>
                 <div class="answer">
-                    <strong>Answer:</strong> <strong>50 inverters</strong> are strictly better for driving a long delay chain or interconnect. A single buffer is essentially two inverters in series. Therefore, 50 buffers mean 100 inverters. Using 50 inverters saves 50% of the silicon area, consumes less power, and introduces less self-loading capacitance. The only caveat is that an odd/even number dictates the final logic polarity, but for signal regeneration, inverting logic is fundamentally more efficient.
+                    <strong>Answer:</strong> <strong>50 inverters</strong> are strictly better for driving a long delay chain or interconnect. A single buffer is essentially two inverters in series. Therefore, 50 buffers mean 100 inverters. Using 50 inverters saves 50% of the silicon area, consumes less power, and introduces less self-loading capacitance.
                 </div>
             </div>
 
@@ -209,7 +245,7 @@
                     <strong>Answer:</strong> A Multi-Cycle Path (MCP) is a data path designed to take more than one clock cycle to propagate to the destination flop.
                     <ul>
                         <li><strong>Setup Check:</strong> Relaxed to $N$ cycles (e.g., checked at the 2nd clock edge for an $N=2$ MCP).</li>
-                        <li><strong>Hold Check:</strong> To prevent data from overriding the previous state too early, the hold check is typically pulled back by $N-1$ cycles (checked at the 1st clock edge for an $N=2$ MCP). Violations can occur if the STA tool isn't explicitly given an MCP constraint, reporting massive false setup violations.</li>
+                        <li><strong>Hold Check:</strong> To prevent data from overriding the previous state too early, the hold check is typically pulled back by $N-1$ cycles (checked at the 1st clock edge for an $N=2$ MCP). Violations occur if the STA tool isn't explicitly given an MCP constraint.</li>
                     </ul>
                 </div>
             </div>
@@ -259,12 +295,12 @@ endmodule</code></pre>
                 <div class="question">Q: Design a NOR gate using NAND gates.</div>
                 <div class="answer">
                     <strong>Answer:</strong> By De Morgan's Law, $A \text{ NOR } B = \overline{A + B}$. 
-                    Also, $\overline{A} \cdot \overline{B} = \overline{A + B}$. 
-                    Therefore, we need to invert the inputs, NAND them together, and then invert the final output:
+                    Also, $\overline{\overline{A} \cdot \overline{B}} = A + B$. 
+                    Therefore:
                     <ol>
                         <li>Invert A: <code>NAND(A, A)</code> &rarr; $\overline{A}$</li>
                         <li>Invert B: <code>NAND(B, B)</code> &rarr; $\overline{B}$</li>
-                        <li>NAND the inverted inputs: <code>NAND($\overline{A}$, $\overline{B}$)</code> &rarr; $A + B$ (This gives an OR gate)</li>
+                        <li>NAND the inverted inputs: <code>NAND($\overline{A}$, $\overline{B}$)</code> &rarr; $A + B$ (OR Gate)</li>
                         <li>Invert the result: <code>NAND(A+B, A+B)</code> &rarr; $\overline{A + B}$ (NOR Gate)</li>
                     </ol>
                     Total NAND gates required = 4.
@@ -278,15 +314,15 @@ endmodule</code></pre>
                     1. The mobile device connects to a local Base Transceiver Station (BTS).<br>
                     2. The signal goes to a Base Station Controller (BSC) and then to a Mobile Switching Center (MSC).<br>
                     3. The MSC routes the call to a Gateway MSC (GMSC).<br>
-                    4. For intercontinental calls, the GMSC routes the digital data through high-bandwidth <strong>undersea fiber-optic cables</strong> (or sometimes communication satellites).<br>
-                    5. The signal reaches the destination continent's GMSC, which locates the receiver's MSC, BSC, and local BTS, terminating at their mobile device.
+                    4. For intercontinental calls, the GMSC routes the digital data through high-bandwidth <strong>undersea fiber-optic cables</strong>.<br>
+                    5. The signal reaches the destination continent's GMSC, which locates the receiver's local BTS and mobile device.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Suppose A, B, C, and D need to cross a bridge at night. Times: A=1, B=2, C=7, D=10. Torch required, max 2 people. Find min time.</div>
+                <div class="question">Q: Suppose A, B, C, and D cross a bridge at night. Times: A=1, B=2, C=7, D=10. Torch required, max 2 people. Find min time.</div>
                 <div class="answer">
-                    <strong>Answer:</strong> The trick is to group the two slowest people together so their time doesn't stack, and use the fastest people to shuttle the torch.
+                    <strong>Answer:</strong> Group the slowest together and use the fastest to shuttle the torch.
                     <ol>
                         <li>A and B cross forward: <strong>2 mins</strong> (Total: 2)</li>
                         <li>A returns with torch: <strong>1 min</strong> (Total: 3)</li>
@@ -301,12 +337,12 @@ endmodule</code></pre>
             <div class="qa-card">
                 <div class="question">Q: 1000 bottles, 1 is poisonous. Detect the poison using 10 rats. Explain how.</div>
                 <div class="answer">
-                    <strong>Answer:</strong> This is a classic binary representation problem. Since $2^{10} = 1024$, 10 rats provide enough binary bits to identify up to 1024 bottles.
+                    <strong>Answer:</strong> Since $2^{10} = 1024$, 10 rats provide enough binary bits to identify up to 1024 bottles.
                     <ol>
-                        <li>Assign each bottle a binary number from 1 (0000000001) to 1000 (1111101000).</li>
-                        <li>Line up the 10 rats, each representing a bit position (Rat 1 = LSB, Rat 10 = MSB).</li>
+                        <li>Assign each bottle a binary number from 1 to 1000.</li>
+                        <li>Line up the 10 rats, each representing a bit position.</li>
                         <li>A rat drinks from a bottle ONLY IF the bottle's binary number has a '1' in that rat's corresponding bit position.</li>
-                        <li>Wait for the poison to take effect. The dead rats represent '1's and the living rats represent '0's. The resulting 10-bit binary number perfectly identifies the poisoned bottle.</li>
+                        <li>The dead rats represent '1's and the living rats represent '0's. The resulting 10-bit binary number identifies the poisoned bottle.</li>
                     </ol>
                 </div>
             </div>
@@ -316,8 +352,8 @@ endmodule</code></pre>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
-                        <li><strong>Sizing:</strong> Because holes (majority carriers in PMOS) have approximately half to one-third the mobility of electrons (NMOS), a PMOS transistor must be sized 2 to 3 times wider ($W_{p} = 2 \sim 3 W_{n}$) than the NMOS to achieve symmetric rise and fall times.</li>
-                        <li><strong>Delay Estimation:</strong> Delay is estimated using the RC time constant model: $t_{pd} \approx 0.69 \cdot R_{eq} \cdot C_{load}$, where $R_{eq}$ is the equivalent ON-resistance of the transistor and $C_{load}$ is the output capacitance.</li>
+                        <li><strong>Sizing:</strong> Because holes have lower mobility than electrons, a PMOS must be sized 2 to 3 times wider ($W_p = 2 \sim 3 \cdot W_n$) than the NMOS to achieve symmetric rise/fall times.</li>
+                        <li><strong>Delay Estimation:</strong> Delay is estimated using the RC time constant model: $t_{pd} \approx 0.69 \cdot R_{eq} \cdot C_{load}$.</li>
                     </ul>
                 </div>
             </div>
@@ -325,7 +361,7 @@ endmodule</code></pre>
             <div class="qa-card">
                 <div class="question">Q: What is a PLL?</div>
                 <div class="answer">
-                    <strong>Answer:</strong> A Phase-Locked Loop (PLL) is an electronic control system that generates an output signal whose phase is matched to the phase of an input reference clock. It consists of a Phase Detector, a Low Pass Filter, and a Voltage Controlled Oscillator (VCO). It is heavily used in VLSI for clock generation, frequency multiplication, and jitter attenuation.
+                    <strong>Answer:</strong> A Phase-Locked Loop (PLL) is an electronic system that generates an output signal whose phase is matched to a reference clock. It consists of a Phase Detector, a Low Pass Filter, and a Voltage Controlled Oscillator (VCO). It is used for clock generation, frequency multiplication, and jitter attenuation.
                 </div>
             </div>
 
@@ -335,7 +371,7 @@ endmodule</code></pre>
             <div class="qa-card">
                 <div class="question">Q: Design the $f/4$ circuit and write the Verilog code.</div>
                 <div class="answer">
-                    <strong>Answer:</strong> A divide-by-4 ($f/4$) clock divider can be designed using a 2-bit synchronous counter. The MSB of the counter will toggle at one-fourth the frequency of the input clock.
+                    <strong>Answer:</strong> A divide-by-4 ($f/4$) clock divider is a 2-bit synchronous counter. The MSB toggles at one-fourth the frequency of the input clock.
 <pre><code>module clk_div_4 (
     input clk,
     input rst_n,
@@ -358,7 +394,7 @@ endmodule</code></pre>
             <div class="qa-card">
                 <div class="question">Q: Design a Mod-5 counter and write its Verilog code. How will it be synthesized?</div>
                 <div class="answer">
-                    <strong>Answer:</strong> A Mod-5 counter counts from 0 to 4 (000 to 100 in binary). Upon reaching 4, it resets to 0 on the next clock edge.
+                    <strong>Answer:</strong> A Mod-5 counter counts from 0 to 4. Upon reaching 4, it resets to 0.
 <pre><code>module mod5_counter (
     input clk,
     input rst_n,
@@ -373,7 +409,7 @@ endmodule</code></pre>
             count <= count + 1'b1;
     end
 endmodule</code></pre>
-                    <strong>Synthesis:</strong> The tool synthesizes this into three D flip-flops (to hold the 3-bit state). The combinational logic feeding the D-inputs will consist of an adder (for the +1 operation) and a comparator/multiplexer (to force the input to 000 when the current state is 100).
+                    <strong>Synthesis:</strong> Synthesized into three D flip-flops. The logic feeding the D-inputs consists of an adder (+1) and a comparator/multiplexer to force a reset when state reaches 4 (100).
                 </div>
             </div>
 
@@ -382,8 +418,8 @@ endmodule</code></pre>
                 <div class="answer">
                     <strong>Answer:</strong>
                     <ul>
-                        <li><strong>Synchronous Reset:</strong> The reset is only evaluated on the active clock edge. <em>Verilog:</em> <code>always @(posedge clk)</code>. <em>Synthesis:</em> The reset signal is routed into the combinational logic (via an AND gate or MUX) before the D-pin of the flip-flop. It does not use the dedicated reset pin of the standard cell.</li>
-                        <li><strong>Asynchronous Reset:</strong> The reset takes effect immediately, regardless of the clock. <em>Verilog:</em> <code>always @(posedge clk or negedge rst)</code>. <em>Synthesis:</em> The reset signal is wired directly to the dedicated <code>CLR</code> or <code>PRE</code> hardware pin on the flip-flop standard cell.</li>
+                        <li><strong>Synchronous Reset:</strong> Evaluated only on the active clock edge. <em>Synthesis:</em> The reset signal is routed into the combinational logic before the D-pin of the flip-flop.</li>
+                        <li><strong>Asynchronous Reset:</strong> Takes effect immediately, regardless of the clock. <em>Synthesis:</em> Wired directly to the dedicated <code>CLR</code> or <code>PRE</code> hardware pin on the flip-flop standard cell.</li>
                     </ul>
                 </div>
             </div>
@@ -394,16 +430,16 @@ endmodule</code></pre>
             <div class="qa-card">
                 <div class="question">Q: Explain ASIC Design flow in detail.</div>
                 <div class="answer">
-                    <strong>Answer:</strong> The Application-Specific Integrated Circuit (ASIC) flow bridges the gap between concept and silicon:
+                    <strong>Answer:</strong>
                     <ol>
-                        <li><strong>Specification & RTL Design:</strong> System requirements are coded in hardware description languages (Verilog/VHDL).</li>
-                        <li><strong>Functional Verification:</strong> Ensuring the RTL code performs the intended logic.</li>
-                        <li><strong>Logic Synthesis:</strong> Translating RTL into a gate-level netlist using a specific standard cell library.</li>
+                        <li><strong>Specification & RTL Design:</strong> Coding in Verilog/VHDL.</li>
+                        <li><strong>Functional Verification:</strong> Simulation to ensure correctness.</li>
+                        <li><strong>Logic Synthesis:</strong> Translating RTL into a gate-level netlist.</li>
                         <li><strong>Floorplanning & Power Planning:</strong> Sizing the die, placing I/O pads, macros, and designing the VDD/GND power grid.</li>
-                        <li><strong>Placement:</strong> Optimally placing standard cells to minimize wire length and congestion.</li>
-                        <li><strong>Clock Tree Synthesis (CTS):</strong> Routing the clock to all sequential elements to minimize skew.</li>
-                        <li><strong>Routing:</strong> Creating metal connections between all components based on the netlist.</li>
-                        <li><strong>Sign-off:</strong> Static Timing Analysis (STA), Design Rule Checking (DRC), and Layout vs Schematic (LVS) checks before exporting the GDSII file.</li>
+                        <li><strong>Placement:</strong> Optimally placing standard cells.</li>
+                        <li><strong>Clock Tree Synthesis (CTS):</strong> Routing the clock to sequential elements.</li>
+                        <li><strong>Routing:</strong> Creating metal connections between all components.</li>
+                        <li><strong>Sign-off:</strong> STA, DRC, and LVS checks before exporting GDSII.</li>
                     </ol>
                 </div>
             </div>
@@ -413,8 +449,8 @@ endmodule</code></pre>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
-                        <li><strong>Logic Synthesis:</strong> Purely logical translation of RTL to gates. It uses generalized Wire Load Models (WLM) to estimate interconnect delays, which is often inaccurate for deep sub-micron nodes.</li>
-                        <li><strong>Physical Synthesis:</strong> Incorporates spatial layout data (basic floorplanning and initial placement) during the synthesis phase. By knowing the rough locations of cells, it calculates highly accurate RC interconnect delays, allowing for much better timing optimization prior to full Physical Design.</li>
+                        <li><strong>Logic Synthesis:</strong> Pure logical translation using general Wire Load Models (WLM) to estimate interconnect delays.</li>
+                        <li><strong>Physical Synthesis:</strong> Incorporates spatial layout data (basic floorplanning/placement). By knowing rough locations, it calculates highly accurate RC interconnect delays for better timing optimization.</li>
                     </ul>
                 </div>
             </div>
@@ -424,8 +460,8 @@ endmodule</code></pre>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
-                        <li><strong>Local Skew:</strong> The difference in clock arrival times strictly between <em>two communicating flip-flops</em> (a specific launch and capture pair). If Flop 1 talks to Flop 2, their skew dictates the setup/hold margins.</li>
-                        <li><strong>Global Skew:</strong> The maximum difference in clock arrival times among <em>any two flip-flops</em> in the entire 100-flop design, regardless of whether they communicate or not. While global skew reflects overall clock tree quality, local skew is what actually causes timing violations.</li>
+                        <li><strong>Local Skew:</strong> The difference in clock arrival times strictly between <em>two communicating flip-flops</em>. Local skew dictates actual setup/hold margins.</li>
+                        <li><strong>Global Skew:</strong> The maximum difference in clock arrival times among <em>any two flip-flops</em> in the entire design, regardless of whether they communicate.</li>
                     </ul>
                 </div>
             </div>
@@ -433,44 +469,58 @@ endmodule</code></pre>
             <div class="qa-card">
                 <div class="question">Q: Why consider the max data path for setup time?</div>
                 <div class="answer">
-                    <strong>Answer:</strong> Setup time requires that data arrives and remains stable *before* the capture clock edge. Therefore, the most critical case is the data that takes the longest time to propagate through the combinational logic. If the <strong>max data path</strong> (slowest path) meets the setup time requirement, all shorter (faster) data paths are guaranteed to meet it as well.
+                    <strong>Answer:</strong> Setup time requires data to arrive and be stable *before* the clock edge. Therefore, the most critical case is the data taking the longest time to propagate (max data path). If the slowest path meets setup time, all faster paths are guaranteed to meet it.
                 </div>
             </div>
 
             <div class="qa-card">
                 <div class="question">Q: What is DRC?</div>
                 <div class="answer">
-                    <strong>Answer:</strong> Design Rule Check (DRC) is a physical verification step that ensures the layout adheres to the foundry's manufacturing constraints. This includes checking minimum metal widths, spacing between wires, via enclosures, and density rules to guarantee the chip can be successfully fabricated without shorts or opens.
+                    <strong>Answer:</strong> Design Rule Check (DRC) ensures the layout adheres to the foundry's manufacturing constraints (e.g., minimum metal widths, spacing between wires) so the chip can be fabricated without shorts or opens.
                 </div>
             </div>
 
             <div class="qa-card">
                 <div class="question">Q: What is CPPR? Explain with an example.</div>
                 <div class="answer">
-                    <strong>Answer:</strong> Clock Path Pessimism Removal (CPPR), also known as CRPR, corrects overly pessimistic STA calculations. 
-                    <br><strong>Example:</strong> In STA, tools calculate worst-case setup by assuming the launch clock path is "late" (slowest delay) and the capture clock path is "early" (fastest delay). However, if both the launch and capture clocks share the exact same physical clock buffer near the root, that single buffer cannot be simultaneously "fast" and "slow" in reality. CPPR mathematically removes this artificial timing penalty from the shared portion of the clock tree.
+                    <strong>Answer:</strong> Clock Path Pessimism Removal (CPPR) corrects overly pessimistic STA calculations. 
+                    <br><strong>Example:</strong> In STA, the worst-case setup assumes the launch clock is "late" and the capture clock is "early". However, if both launch and capture clocks share the exact same physical clock buffer near the root, that single buffer cannot be simultaneously "fast" and "slow". CPPR mathematically removes this artificial timing penalty from the shared portion of the clock tree.
                 </div>
             </div>
 
         </div>
     </div>
 
+    <!-- Script to handle PDF Export and wait for MathJax -->
     <script>
         function exportToPDF() {
+            // Add a class to hide the button and adjust styles
             document.body.classList.add('pdf-generating');
             
             const element = document.getElementById('content-to-export');
+            
+            // html2pdf configuration optimized to prevent blank pages
             const opt = {
-                margin:       0.5,
+                margin:       [0.4, 0.4, 0.4, 0.4], // Top, Left, Bottom, Right margins in inches
                 filename:     'AMD_Bhavana_CS_Interview_QA.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                html2canvas:  { 
+                    scale: 2,
+                    useCORS: true,
+                    scrollY: 0
+                },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+                // Use CSS page-break rules strictly
+                pagebreak:    { mode: ['css', 'legacy'] }
             };
             
-            html2pdf().set(opt).from(element).save().then(() => {
-                document.body.classList.remove('pdf-generating');
-            });
+            // Wait a tiny bit for MathJax to be fully done rendering SVGs if any were pending
+            setTimeout(() => {
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Remove the class to show the button again after export
+                    document.body.classList.remove('pdf-generating');
+                });
+            }, 300);
         }
     </script>
 </body>
