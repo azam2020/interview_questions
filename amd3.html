@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMD Interview Experience Q&A</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- html2pdf JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 50px;
+        }
+        .header-section {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .qa-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border-left: 5px solid #0078d7;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+        .qa-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        .question {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+        .answer {
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.6;
+        }
+        .round-title {
+            color: #0078d7;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #0078d7;
+            padding-bottom: 10px;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #d63384;
+        }
+        #exportBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: bold;
+        }
+        .pdf-generating #exportBtn {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="exportBtn" class="btn btn-primary" onclick="exportToPDF()">
+        <i class="bi bi-file-earmark-pdf"></i> Export to PDF
+    </button>
+
+    <div id="content-to-export">
+        <div class="header-section">
+            <div class="container">
+                <h1>AMD VLSI/CS Interview Q&A</h1>
+                <p class="lead mb-0">Technical Reference based on AMD_Bhavana_CS✅.pdf</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Round 1 Section -->
+            <h2 class="round-title">Round 1: Core Electronics & Digital Design</h2>
+
+            <div class="qa-card">
+                <div class="question">Q: What is a MOSFET? What is Threshold Voltage? How can you vary the Threshold Voltage?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>MOSFET:</strong> A Metal-Oxide-Semiconductor Field-Effect Transistor is a voltage-controlled device used for switching and amplification.</li>
+                        <li><strong>Threshold Voltage ($V_{th}$):</strong> The minimum gate-to-source voltage ($V_{GS}$) required to create a conducting inversion channel between the source and the drain.</li>
+                        <li><strong>Varying $V_{th}$:</strong> It can be altered during fabrication by changing the oxide thickness, channel doping concentration, or dielectric material. Post-fabrication, it can be dynamically altered using the <strong>Body Effect</strong> (applying a reverse or forward bias to the substrate/body terminal relative to the source).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Explain the different regions in MOSFETs and their operation.</div>
+                <div class="answer">
+                    <strong>Answer:</strong>
+                    <ul>
+                        <li><strong>Cut-off Region ($V_{GS} < V_{th}$):</strong> No channel is formed. The transistor acts as an open switch. Ideal current is zero (though subthreshold leakage exists).</li>
+                        <li><strong>Linear/Triode Region ($V_{GS} > V_{th}$ and $V_{DS} < V_{GS} - V_{th}$):</strong> The channel is fully formed and acts as a voltage-controlled resistor. Drain current ($I_D$) increases linearly with $V_{DS}$.</li>
+                        <li><strong>Saturation Region ($V_{GS} > V_{th}$ and $V_{DS} \ge V_{GS} - V_{th}$):</strong> The channel pinches off near the drain. The transistor acts as a closed switch or current source, where $I_D$ becomes largely independent of $V_{DS}$ and is controlled quadratically by $V_{GS}$.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is Channel Length Modulation (CLM)? What factors are affected by it?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> CLM occurs in the saturation region when an increasing $V_{DS}$ causes the pinch-off point to move closer to the source, effectively shortening the effective channel length ($L_{eff}$).
+                    <br><strong>Affected factors:</strong> It causes the drain current ($I_D$) to increase slightly with $V_{DS}$ in saturation, lowering the output resistance ($r_0$) of the transistor, which consequently reduces the intrinsic voltage gain of analog amplifiers.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Explain Short-Channel Effects (SCE) in detail.</div>
+                <div class="answer">
+                    <strong>Answer:</strong> As MOSFET channel lengths scale down, ideal behavior breaks down, leading to SCEs:
+                    <ul>
+                        <li><strong>DIBL (Drain-Induced Barrier Lowering):</strong> A high $V_{DS}$ lowers the potential barrier at the source, effectively decreasing $V_{th}$ and increasing leakage.</li>
+                        <li><strong>Velocity Saturation:</strong> At high horizontal electric fields, carrier velocity stops increasing linearly with the field, capping the maximum drain current.</li>
+                        <li><strong>Hot Carrier Injection (HCI):</strong> High-energy electrons tunnel into the gate oxide, permanently shifting $V_{th}$ and degrading device lifetime.</li>
+                        <li><strong>Punch-through:</strong> The source and drain depletion regions merge, bypassing gate control and causing massive leakage.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is Power Dissipation in CMOS? How to avoid it?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Power dissipation in CMOS has three main components:
+                    <ol>
+                        <li><strong>Dynamic Power ($P = \alpha C V^2 f$):</strong> Due to charging/discharging load capacitors. <em>Avoid by:</em> Clock gating, lowering VDD, minimizing load capacitance, and reducing switching activity.</li>
+                        <li><strong>Short-Circuit Power:</strong> Dissipated when both NMOS and PMOS are briefly ON during signal transitions. <em>Avoid by:</em> Ensuring fast input transition times (good slew rates).</li>
+                        <li><strong>Static/Leakage Power:</strong> Subthreshold and gate-oxide leakage when the transistor is OFF. <em>Avoid by:</em> Multi-$V_{th}$ libraries, power gating (shutting off power to inactive blocks), and reverse body biasing.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: How do you build an Inverter using a NAND gate?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A 2-input NAND gate gives the logic output $\overline{A \cdot B}$. To configure it as an inverter, simply tie both inputs together (A = B). The output becomes $\overline{A \cdot A} = \overline{A}$.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Explain Low Vth cells vs High Vth cells. Which has more delay?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>Low $V_{th}$ cells:</strong> Require less voltage to turn on. They switch very fast (less delay) but suffer from high subthreshold leakage power. Used in critical timing paths.</li>
+                        <li><strong>High $V_{th}$ cells:</strong> Require more voltage to turn on. They switch slower (<strong>more delay</strong>) but have significantly lower leakage power. Used in non-critical paths to save power.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: If a duty cycle changes from 50% at point A to 40% at point B in a combinational circuit, what is the reason? (Duty Cycle Distortion)</div>
+                <div class="answer">
+                    <strong>Answer:</strong> This is called <strong>Duty Cycle Distortion (DCD)</strong>. It occurs because the pull-up network (rise time delay) and pull-down network (fall time delay) in the combinational circuit are not perfectly balanced. If a gate falls faster than it rises, the pulse width (Logic 1 duration) shrinks as it propagates, altering the 50% duty cycle to a skewed value like 40%. Other reasons include $V_{th}$ variations, uneven clock buffer sizing, and power supply noise.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Explain Slew Rate.</div>
+                <div class="answer">
+                    <strong>Answer:</strong> In digital VLSI, slew rate refers to the transition time (rise time or fall time) of a signal. It is the time taken for a signal to transition from 10% to 90% (or 20% to 80%) of VDD. A high slew rate means a fast transition. Poor slew rates lead to increased short-circuit power and delay.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: 50 Buffers or 50 Inverters? Which one is better and why?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> <strong>50 inverters</strong> are strictly better for driving a long delay chain or interconnect. A single buffer is essentially two inverters in series. Therefore, 50 buffers mean 100 inverters. Using 50 inverters saves 50% of the silicon area, consumes less power, and introduces less self-loading capacitance. The only caveat is that an odd/even number dictates the final logic polarity, but for signal regeneration, inverting logic is fundamentally more efficient.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: If a combinational circuit takes 12ns but the time period is 10ns, how can you solve this without varying the period?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> There are two main architectural techniques:
+                    <ol>
+                        <li><strong>Pipelining:</strong> Insert a flip-flop in the middle of the combinational logic, splitting the 12ns delay into two smaller stages (e.g., 6ns and 6ns), both of which easily meet the 10ns clock period.</li>
+                        <li><strong>Time/Latch Borrowing:</strong> Replace the edge-triggered flip-flop at the end of the path with a level-sensitive latch. Latches are transparent for half the clock cycle, allowing the 12ns logic to "borrow" 2ns of time from the next cycle's timing budget.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is a Multi-Cycle Path? How are Setup and Hold checks performed?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A Multi-Cycle Path (MCP) is a data path designed to take more than one clock cycle to propagate to the destination flop.
+                    <ul>
+                        <li><strong>Setup Check:</strong> Relaxed to $N$ cycles (e.g., checked at the 2nd clock edge for an $N=2$ MCP).</li>
+                        <li><strong>Hold Check:</strong> To prevent data from overriding the previous state too early, the hold check is typically pulled back by $N-1$ cycles (checked at the 1st clock edge for an $N=2$ MCP). Violations can occur if the STA tool isn't explicitly given an MCP constraint, reporting massive false setup violations.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Write Verilog code for a D flip-flop with an asynchronous active-low reset.</div>
+                <div class="answer">
+<pre><code>module dff_async_rst (
+    input clk,
+    input rst_n,
+    input d,
+    output reg q
+);
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            q <= 1'b0;
+        else
+            q <= d;
+    end
+endmodule</code></pre>
+                </div>
+            </div>
+
+            <!-- Round 2 Section -->
+            <h2 class="round-title">Round 2: Logic Design & Problem Solving</h2>
+
+            <div class="qa-card">
+                <div class="question">Q: Let A be a 3x2 matrix. I want a 3x3 matrix where the 3rd column is the sum of the 1st and 2nd. Write Verilog code.</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Using SystemVerilog multi-dimensional arrays:
+<pre><code>module matrix_transform (
+    input  logic [7:0] A [0:2][0:1], // 3x2 input matrix
+    output logic [7:0] B [0:2][0:2]  // 3x3 output matrix
+);
+    always_comb begin
+        for (int i = 0; i < 3; i++) begin
+            B[i][0] = A[i][0]; // Copy Col 1
+            B[i][1] = A[i][1]; // Copy Col 2
+            B[i][2] = A[i][0] + A[i][1]; // Col 3 = Col 1 + Col 2
+        end
+    end
+endmodule</code></pre>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Design a NOR gate using NAND gates.</div>
+                <div class="answer">
+                    <strong>Answer:</strong> By De Morgan's Law, $A \text{ NOR } B = \overline{A + B}$. 
+                    Also, $\overline{A} \cdot \overline{B} = \overline{A + B}$. 
+                    Therefore, we need to invert the inputs, NAND them together, and then invert the final output:
+                    <ol>
+                        <li>Invert A: <code>NAND(A, A)</code> &rarr; $\overline{A}$</li>
+                        <li>Invert B: <code>NAND(B, B)</code> &rarr; $\overline{B}$</li>
+                        <li>NAND the inverted inputs: <code>NAND($\overline{A}$, $\overline{B}$)</code> &rarr; $A + B$ (This gives an OR gate)</li>
+                        <li>Invert the result: <code>NAND(A+B, A+B)</code> &rarr; $\overline{A + B}$ (NOR Gate)</li>
+                    </ol>
+                    Total NAND gates required = 4.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: How is a call made if communication is between two continents?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    1. The mobile device connects to a local Base Transceiver Station (BTS).<br>
+                    2. The signal goes to a Base Station Controller (BSC) and then to a Mobile Switching Center (MSC).<br>
+                    3. The MSC routes the call to a Gateway MSC (GMSC).<br>
+                    4. For intercontinental calls, the GMSC routes the digital data through high-bandwidth <strong>undersea fiber-optic cables</strong> (or sometimes communication satellites).<br>
+                    5. The signal reaches the destination continent's GMSC, which locates the receiver's MSC, BSC, and local BTS, terminating at their mobile device.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Suppose A, B, C, and D need to cross a bridge at night. Times: A=1, B=2, C=7, D=10. Torch required, max 2 people. Find min time.</div>
+                <div class="answer">
+                    <strong>Answer:</strong> The trick is to group the two slowest people together so their time doesn't stack, and use the fastest people to shuttle the torch.
+                    <ol>
+                        <li>A and B cross forward: <strong>2 mins</strong> (Total: 2)</li>
+                        <li>A returns with torch: <strong>1 min</strong> (Total: 3)</li>
+                        <li>C and D cross forward: <strong>10 mins</strong> (Total: 13)</li>
+                        <li>B returns with torch: <strong>2 mins</strong> (Total: 15)</li>
+                        <li>A and B cross forward: <strong>2 mins</strong> (Total: 17)</li>
+                    </ol>
+                    Minimum time = <strong>17 minutes</strong>.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: 1000 bottles, 1 is poisonous. Detect the poison using 10 rats. Explain how.</div>
+                <div class="answer">
+                    <strong>Answer:</strong> This is a classic binary representation problem. Since $2^{10} = 1024$, 10 rats provide enough binary bits to identify up to 1024 bottles.
+                    <ol>
+                        <li>Assign each bottle a binary number from 1 (0000000001) to 1000 (1111101000).</li>
+                        <li>Line up the 10 rats, each representing a bit position (Rat 1 = LSB, Rat 10 = MSB).</li>
+                        <li>A rat drinks from a bottle ONLY IF the bottle's binary number has a '1' in that rat's corresponding bit position.</li>
+                        <li>Wait for the poison to take effect. The dead rats represent '1's and the living rats represent '0's. The resulting 10-bit binary number perfectly identifies the poisoned bottle.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What are the sizes of PMOS and NMOS in an inverter? Can you estimate the delay?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>Sizing:</strong> Because holes (majority carriers in PMOS) have approximately half to one-third the mobility of electrons (NMOS), a PMOS transistor must be sized 2 to 3 times wider ($W_{p} = 2 \sim 3 W_{n}$) than the NMOS to achieve symmetric rise and fall times.</li>
+                        <li><strong>Delay Estimation:</strong> Delay is estimated using the RC time constant model: $t_{pd} \approx 0.69 \cdot R_{eq} \cdot C_{load}$, where $R_{eq}$ is the equivalent ON-resistance of the transistor and $C_{load}$ is the output capacitance.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is a PLL?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A Phase-Locked Loop (PLL) is an electronic control system that generates an output signal whose phase is matched to the phase of an input reference clock. It consists of a Phase Detector, a Low Pass Filter, and a Voltage Controlled Oscillator (VCO). It is heavily used in VLSI for clock generation, frequency multiplication, and jitter attenuation.
+                </div>
+            </div>
+
+            <!-- Round 3 Section -->
+            <h2 class="round-title">Round 3: Advanced Digital Logic</h2>
+
+            <div class="qa-card">
+                <div class="question">Q: Design the $f/4$ circuit and write the Verilog code.</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A divide-by-4 ($f/4$) clock divider can be designed using a 2-bit synchronous counter. The MSB of the counter will toggle at one-fourth the frequency of the input clock.
+<pre><code>module clk_div_4 (
+    input clk,
+    input rst_n,
+    output clk_out
+);
+    reg [1:0] count;
+    
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            count <= 2'b00;
+        else
+            count <= count + 1'b1;
+    end
+    
+    assign clk_out = count[1]; // MSB provides f/4
+endmodule</code></pre>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Design a Mod-5 counter and write its Verilog code. How will it be synthesized?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A Mod-5 counter counts from 0 to 4 (000 to 100 in binary). Upon reaching 4, it resets to 0 on the next clock edge.
+<pre><code>module mod5_counter (
+    input clk,
+    input rst_n,
+    output reg [2:0] count
+);
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            count <= 3'b000;
+        else if (count == 3'd4)
+            count <= 3'b000;
+        else
+            count <= count + 1'b1;
+    end
+endmodule</code></pre>
+                    <strong>Synthesis:</strong> The tool synthesizes this into three D flip-flops (to hold the 3-bit state). The combinational logic feeding the D-inputs will consist of an adder (for the +1 operation) and a comparator/multiplexer (to force the input to 000 when the current state is 100).
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What are synchronous reset and asynchronous reset? How are they synthesized?</div>
+                <div class="answer">
+                    <strong>Answer:</strong>
+                    <ul>
+                        <li><strong>Synchronous Reset:</strong> The reset is only evaluated on the active clock edge. <em>Verilog:</em> <code>always @(posedge clk)</code>. <em>Synthesis:</em> The reset signal is routed into the combinational logic (via an AND gate or MUX) before the D-pin of the flip-flop. It does not use the dedicated reset pin of the standard cell.</li>
+                        <li><strong>Asynchronous Reset:</strong> The reset takes effect immediately, regardless of the clock. <em>Verilog:</em> <code>always @(posedge clk or negedge rst)</code>. <em>Synthesis:</em> The reset signal is wired directly to the dedicated <code>CLR</code> or <code>PRE</code> hardware pin on the flip-flop standard cell.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Round 4 Section -->
+            <h2 class="round-title">Round 4: Physical Design & STA</h2>
+
+            <div class="qa-card">
+                <div class="question">Q: Explain ASIC Design flow in detail.</div>
+                <div class="answer">
+                    <strong>Answer:</strong> The Application-Specific Integrated Circuit (ASIC) flow bridges the gap between concept and silicon:
+                    <ol>
+                        <li><strong>Specification & RTL Design:</strong> System requirements are coded in hardware description languages (Verilog/VHDL).</li>
+                        <li><strong>Functional Verification:</strong> Ensuring the RTL code performs the intended logic.</li>
+                        <li><strong>Logic Synthesis:</strong> Translating RTL into a gate-level netlist using a specific standard cell library.</li>
+                        <li><strong>Floorplanning & Power Planning:</strong> Sizing the die, placing I/O pads, macros, and designing the VDD/GND power grid.</li>
+                        <li><strong>Placement:</strong> Optimally placing standard cells to minimize wire length and congestion.</li>
+                        <li><strong>Clock Tree Synthesis (CTS):</strong> Routing the clock to all sequential elements to minimize skew.</li>
+                        <li><strong>Routing:</strong> Creating metal connections between all components based on the netlist.</li>
+                        <li><strong>Sign-off:</strong> Static Timing Analysis (STA), Design Rule Checking (DRC), and Layout vs Schematic (LVS) checks before exporting the GDSII file.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Difference between Logic Synthesis and Physical Synthesis.</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>Logic Synthesis:</strong> Purely logical translation of RTL to gates. It uses generalized Wire Load Models (WLM) to estimate interconnect delays, which is often inaccurate for deep sub-micron nodes.</li>
+                        <li><strong>Physical Synthesis:</strong> Incorporates spatial layout data (basic floorplanning and initial placement) during the synthesis phase. By knowing the rough locations of cells, it calculates highly accurate RC interconnect delays, allowing for much better timing optimization prior to full Physical Design.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Explain Local Skew and Global Skew. (Suppose 100 flops)</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>Local Skew:</strong> The difference in clock arrival times strictly between <em>two communicating flip-flops</em> (a specific launch and capture pair). If Flop 1 talks to Flop 2, their skew dictates the setup/hold margins.</li>
+                        <li><strong>Global Skew:</strong> The maximum difference in clock arrival times among <em>any two flip-flops</em> in the entire 100-flop design, regardless of whether they communicate or not. While global skew reflects overall clock tree quality, local skew is what actually causes timing violations.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Why consider the max data path for setup time?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Setup time requires that data arrives and remains stable *before* the capture clock edge. Therefore, the most critical case is the data that takes the longest time to propagate through the combinational logic. If the <strong>max data path</strong> (slowest path) meets the setup time requirement, all shorter (faster) data paths are guaranteed to meet it as well.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is DRC?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Design Rule Check (DRC) is a physical verification step that ensures the layout adheres to the foundry's manufacturing constraints. This includes checking minimum metal widths, spacing between wires, via enclosures, and density rules to guarantee the chip can be successfully fabricated without shorts or opens.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What is CPPR? Explain with an example.</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Clock Path Pessimism Removal (CPPR), also known as CRPR, corrects overly pessimistic STA calculations. 
+                    <br><strong>Example:</strong> In STA, tools calculate worst-case setup by assuming the launch clock path is "late" (slowest delay) and the capture clock path is "early" (fastest delay). However, if both the launch and capture clocks share the exact same physical clock buffer near the root, that single buffer cannot be simultaneously "fast" and "slow" in reality. CPPR mathematically removes this artificial timing penalty from the shared portion of the clock tree.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function exportToPDF() {
+            document.body.classList.add('pdf-generating');
+            
+            const element = document.getElementById('content-to-export');
+            const opt = {
+                margin:       0.5,
+                filename:     'AMD_Bhavana_CS_Interview_QA.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                document.body.classList.remove('pdf-generating');
+            });
+        }
+    </script>
+</body>
+</html>
