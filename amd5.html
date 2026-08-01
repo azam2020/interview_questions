@@ -133,14 +133,14 @@
             <h2 class="round-title">Round 1: Verilog & Physical Design</h2>
 
             <div class="qa-card">
-                <div class="question">Q: What is hardware modelling using Verilog?[cite: 4]</div>
+                <div class="question">Q: What is hardware modelling using Verilog? </div>
                 <div class="answer">
                     <strong>Answer:</strong> Hardware modeling is the process of describing the architecture, behavior, and structural logic of a digital system using a Hardware Description Language (HDL) like Verilog. It allows engineers to design at various levels of abstraction (behavioral, dataflow, gate-level, and switch-level) so the design can be simulated for functional correctness and later synthesized into actual physical logic gates.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: How do you infer latches in Verilog, and why is it usually considered a mistake in FPGA implementation?[cite: 4]</div>
+                <div class="question">Q: How do you infer latches in Verilog, and why is it usually considered a mistake in FPGA implementation? </div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     Latches are inferred unintentionally in combinational blocks (<code>always @*</code> or <code>always_comb</code>) when a variable is not assigned a value in all possible execution paths (e.g., missing an <code>else</code> branch in an <code>if</code> statement, or a <code>default</code> case in a <code>case</code> statement). 
@@ -149,7 +149,7 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Explain Frequency Division concepts.[cite: 4]</div>
+                <div class="question">Q: Explain Frequency Division concepts. </div>
                 <div class="answer">
                     <strong>Answer:</strong> Frequency division reduces a high-frequency clock to a lower-frequency clock. 
                     <ul>
@@ -194,7 +194,7 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Draw an inverter using NAND gates. There are two designs; which should be preferred?[cite: 4]</div>
+                <div class="question">Q: Draw an inverter using NAND gates. There are two designs; which should be preferred? </div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
@@ -206,7 +206,7 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Design an XOR using 2-input NAND gates.[cite: 4]</div>
+                <div class="question">Q: Design an XOR using 2-input NAND gates. </div>
                 <div class="answer">
                     <strong>Answer:</strong> The most optimized way requires 4 NAND gates:
                     <ol>
@@ -219,7 +219,7 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Is there any significance to putting one of the inputs closer to the output in a NOR CMOS implementation?[cite: 4]</div>
+                <div class="question">Q: Is there any significance to putting one of the inputs closer to the output in a NOR CMOS implementation? </div>
                 <div class="answer">
                     <strong>Answer:</strong> Yes, this relies on <strong>transistor ordering</strong> (or pin reassigning). In a NOR gate, the PMOS transistors are in series. The critical/late-arriving signal should be assigned to the PMOS transistor <em>closest to the output node</em>. 
                     <br><strong>Reason:</strong> If the late signal is at the top (closest to $V_{DD}$), it has to charge intermediate parasitic node capacitances between the series transistors before reaching the output, increasing delay. Putting the late-arriving signal closest to the output discharges/charges the output node almost immediately, minimizing path delay.
@@ -227,7 +227,7 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Which should be preferred, NAND or NOR?[cite: 4]</div>
+                <div class="question">Q: Which should be preferred, NAND or NOR? </div>
                 <div class="answer">
                     <strong>Answer:</strong> <strong>NAND</strong> is always preferred in CMOS design. 
                     Because electrons (NMOS) have higher mobility than holes (PMOS), PMOS transistors must be sized larger to achieve the same current. 
@@ -237,7 +237,7 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Draw a source follower circuit and its small signal model. Why is it called a source follower?[cite: 4]</div>
+                <div class="question">Q: Draw a source follower circuit and its small signal model. Why is it called a source follower? </div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
@@ -249,17 +249,17 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: If a fabricated chip has a hold violation, how would you fix it using temperature or VDD?[cite: 4]</div>
+                <div class="question">Q: If a fabricated chip has a hold violation, how would you fix it using temperature or VDD? </div>
                 <div class="answer">
-                    <strong>Answer:</strong> Post-fabrication, hold violations cannot be fixed by lowering clock frequency. However, you can manipulate operating conditions[cite: 4]:
+                    <strong>Answer:</strong> Post-fabrication, hold violations cannot be fixed by lowering clock frequency. However, you can manipulate operating conditions :
                     <br><strong>Temperature Inversion:</strong> In advanced deep sub-micron nodes (sub-65nm) operating at low VDD, higher temperatures actually cause the threshold voltage ($V_{th}$) to drop significantly, which overtakes the mobility degradation. Thus, the chip becomes <em>faster</em> at high temperatures. To fix a hold violation (which requires slowing down the data path), you would operate the chip at a <strong>colder temperature</strong> to increase cell delay, adding artificial hold margin.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: If a fabricated chip has a setup violation, without altering clock frequency, how would you fix it?[cite: 4]</div>
+                <div class="question">Q: If a fabricated chip has a setup violation, without altering clock frequency, how would you fix it? </div>
                 <div class="answer">
-                    <strong>Answer:</strong> Setup violations mean the data is arriving too late. You need to speed up the combinational logic. This can be done by <strong>increasing the operating voltage ($V_{DD}$)</strong> (often called overvolting). A higher $V_{DD}$ increases the drive current of the transistors, decreasing the propagation delay ($T_{comb}$) and allowing the data to meet the setup window[cite: 4].
+                    <strong>Answer:</strong> Setup violations mean the data is arriving too late. You need to speed up the combinational logic. This can be done by <strong>increasing the operating voltage ($V_{DD}$)</strong> (often called overvolting). A higher $V_{DD}$ increases the drive current of the transistors, decreasing the propagation delay ($T_{comb}$) and allowing the data to meet the setup window .
                 </div>
             </div>
 
@@ -267,7 +267,7 @@
             <h2 class="round-title">Round 3: Advanced Concepts & Scripting</h2>
 
             <div class="qa-card">
-                <div class="question">Q: Write Verilog code for an active-low asynchronous reset flip-flop.[cite: 4]</div>
+                <div class="question">Q: Write Verilog code for an active-low asynchronous reset flip-flop. </div>
                 <div class="answer">
 <pre><code>module async_rst_ff (
     input clk,
@@ -286,7 +286,7 @@ endmodule</code></pre>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Write Verilog code for an active-low asynchronous reset latch.[cite: 4]</div>
+                <div class="question">Q: Write Verilog code for an active-low asynchronous reset latch. </div>
                 <div class="answer">
 <pre><code>module async_rst_latch (
     input en,
@@ -305,7 +305,7 @@ endmodule</code></pre>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: There are two paths: one with $n$ identical inverters, the other with $n$ identical buffers. Effect on duty cycle?[cite: 4]</div>
+                <div class="question">Q: There are two paths: one with $n$ identical inverters, the other with $n$ identical buffers. Effect on duty cycle? </div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <strong>The Inverter chain is much better for duty cycle.</strong>
@@ -317,14 +317,14 @@ endmodule</code></pre>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: If metastability time is more than one clock cycle, what should we do? (Regarding Synchronizers)[cite: 4]</div>
+                <div class="question">Q: If metastability time is more than one clock cycle, what should we do? (Regarding Synchronizers) </div>
                 <div class="answer">
                     <strong>Answer:</strong> A standard 2-flop synchronizer grants exactly one clock cycle of resolution time for the metastable signal to settle. If the Mean Time Between Failures (MTBF) calculations show that the signal might remain metastable for <em>longer</em> than one cycle (usually in very high-frequency domains), you must use a <strong>3-flop or N-flop synchronizer</strong>. Adding more flip-flops in series adds full clock cycles to the resolution budget, exponentially increasing the MTBF.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Puzzle: If we have a 3L jug and a 5L jug, how will you measure 4L?[cite: 4]</div>
+                <div class="question">Q: Puzzle: If we have a 3L jug and a 5L jug, how will you measure 4L? </div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ol>
