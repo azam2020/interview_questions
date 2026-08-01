@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMD Interview Experience Q&A (Kiran Kumar CS)</title>
+    <title>AMD Interview Experience Q&A </title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -124,7 +124,7 @@
         <div class="header-section">
             <div class="container">
                 <h1>AMD VLSI Interview Q&A</h1>
-                <p class="lead mb-0">Technical Reference based on AMD_KiranKumar_CS✅.pdf[cite: 3]</p>
+                <p class="lead mb-0">Technical Reference </p>
             </div>
         </div>
 
@@ -133,25 +133,25 @@
             <h2 class="round-title">Round 1: Transistor Level Design & Logic</h2>
 
             <div class="qa-card">
-                <div class="question">Q: What is VLSI, and why is there so much demand for it?[cite: 3]</div>
+                <div class="question">Q: What is VLSI, and why is there so much demand for it? </div>
                 <div class="answer">
-                    <strong>Answer:</strong> VLSI stands for Very Large Scale Integration. It is the process of creating an integrated circuit (IC) by combining millions or billions of MOS transistors onto a single silicon chip[cite: 3]. The demand is driven by the continuous need for miniaturization, higher processing power, and lower power consumption in advanced electronics like AI accelerators, smartphones, IoT devices, and automotive systems[cite: 3].
+                    <strong>Answer:</strong> VLSI stands for Very Large Scale Integration. It is the process of creating an integrated circuit (IC) by combining millions or billions of MOS transistors onto a single silicon chip . The demand is driven by the continuous need for miniaturization, higher processing power, and lower power consumption in advanced electronics like AI accelerators, smartphones, IoT devices, and automotive systems .
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What are the different Transistors used in the VLSI Industry? Why move to NMOS/PMOS compared to BJT?[cite: 3]</div>
+                <div class="question">Q: What are the different Transistors used in the VLSI Industry? Why move to NMOS/PMOS compared to BJT? </div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
-                        <li>The primary transistors used are <strong>NMOS</strong> and <strong>PMOS</strong>, which together form CMOS (Complementary Metal-Oxide-Semiconductor) logic[cite: 3].</li>
-                        <li><strong>Why over BJT:</strong> BJTs (Bipolar Junction Transistors) are current-driven and dissipate static power constantly when turned on. MOSFETs are voltage-driven, offering virtually zero static power consumption (ideal for packing billions of transistors), better scalability to nanometer nodes, higher input impedance, and improved noise margins[cite: 3].</li>
+                        <li>The primary transistors used are <strong>NMOS</strong> and <strong>PMOS</strong>, which together form CMOS (Complementary Metal-Oxide-Semiconductor) logic .</li>
+                        <li><strong>Why over BJT:</strong> BJTs (Bipolar Junction Transistors) are current-driven and dissipate static power constantly when turned on. MOSFETs are voltage-driven, offering virtually zero static power consumption (ideal for packing billions of transistors), better scalability to nanometer nodes, higher input impedance, and improved noise margins .</li>
                     </ul>
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: How do you identify the Drain and Source terminals in NMOS/PMOS?[cite: 3]</div>
+                <div class="question">Q: How do you identify the Drain and Source terminals in NMOS/PMOS? </div>
                 <div class="answer">
                     <strong>Answer:</strong> Structurally, the Source and Drain are completely symmetric. The identification depends entirely on the applied voltages:
                     <ul>
@@ -162,46 +162,46 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Explain the CMOS Inverter, its truth table, and how it is derived.[cite: 3]</div>
+                <div class="question">Q: Explain the CMOS Inverter, its truth table, and how it is derived. </div>
                 <div class="answer">
-                    <strong>Answer:</strong> A CMOS Inverter has a PMOS pull-up network connected to $V_{DD}$ and an NMOS pull-down network connected to GND[cite: 3]. Both gates are tied together as the input ($V_{in}$)[cite: 3].
+                    <strong>Answer:</strong> A CMOS Inverter has a PMOS pull-up network connected to $V_{DD}$ and an NMOS pull-down network connected to GND . Both gates are tied together as the input ($V_{in}$) .
                     <br><br>
                     <strong>Truth Table & Derivation:</strong>
                     <ul>
-                        <li>If $V_{in} = 0$ (Logic 0): PMOS turns ON, NMOS turns OFF. The output node is pulled up to $V_{DD}$ (Logic 1)[cite: 3].</li>
-                        <li>If $V_{in} = 1$ (Logic 1): NMOS turns ON, PMOS turns OFF. The output node is pulled down to GND (Logic 0)[cite: 3].</li>
+                        <li>If $V_{in} = 0$ (Logic 0): PMOS turns ON, NMOS turns OFF. The output node is pulled up to $V_{DD}$ (Logic 1) .</li>
+                        <li>If $V_{in} = 1$ (Logic 1): NMOS turns ON, PMOS turns OFF. The output node is pulled down to GND (Logic 0) .</li>
                     </ul>
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Is there any point of time in a CMOS Inverter when both transistors turn ON? What is the issue with that?[cite: 3]</div>
+                <div class="question">Q: Is there any point of time in a CMOS Inverter when both transistors turn ON? What is the issue with that? </div>
                 <div class="answer">
-                    <strong>Answer:</strong> Yes, during the transition phase when the input voltage switches between 0 and 1 (specifically around $V_{in} = V_{DD}/2$), both the NMOS and PMOS operate in the saturation region[cite: 3]. 
-                    <br><strong>The Issue:</strong> This creates a direct conductive path from $V_{DD}$ to Ground, resulting in <strong>Short-Circuit Power Dissipation</strong>. This wastes energy and can cause thermal issues if input transition times (slew rates) are excessively slow[cite: 3].
+                    <strong>Answer:</strong> Yes, during the transition phase when the input voltage switches between 0 and 1 (specifically around $V_{in} = V_{DD}/2$), both the NMOS and PMOS operate in the saturation region . 
+                    <br><strong>The Issue:</strong> This creates a direct conductive path from $V_{DD}$ to Ground, resulting in <strong>Short-Circuit Power Dissipation</strong>. This wastes energy and can cause thermal issues if input transition times (slew rates) are excessively slow .
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What happens if $V_{GS} = 0$? What currents flow in NMOS/PMOS? (Subthreshold & Gate Leakage)[cite: 3]</div>
+                <div class="question">Q: What happens if $V_{GS} = 0$? What currents flow in NMOS/PMOS? (Subthreshold & Gate Leakage) </div>
                 <div class="answer">
-                    <strong>Answer:</strong> When $V_{GS} = 0$, the transistor is in the cut-off region and ideally no current should flow[cite: 3]. However, in deep sub-micron nodes, two primary leakage currents occur:
+                    <strong>Answer:</strong> When $V_{GS} = 0$, the transistor is in the cut-off region and ideally no current should flow . However, in deep sub-micron nodes, two primary leakage currents occur:
                     <ul>
-                        <li><strong>Subthreshold Leakage:</strong> A small diffusion current flows from Drain to Source through the channel because the transistor doesn't turn off completely abruptly[cite: 3].</li>
-                        <li><strong>Gate Leakage:</strong> Electrons tunnel vertically through the ultra-thin $SiO_2$ gate oxide directly from the gate to the substrate/channel, governed by Quantum Mechanical tunneling[cite: 3].</li>
+                        <li><strong>Subthreshold Leakage:</strong> A small diffusion current flows from Drain to Source through the channel because the transistor doesn't turn off completely abruptly .</li>
+                        <li><strong>Gate Leakage:</strong> Electrons tunnel vertically through the ultra-thin $SiO_2$ gate oxide directly from the gate to the substrate/channel, governed by Quantum Mechanical tunneling .</li>
                     </ul>
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What are Universal Gates and why are they called so?[cite: 3]</div>
+                <div class="question">Q: What are Universal Gates and why are they called so? </div>
                 <div class="answer">
-                    <strong>Answer:</strong> <strong>NAND</strong> and <strong>NOR</strong> are Universal Gates. They are called this because any fundamental logic operation (AND, OR, NOT) and consequently any complex boolean digital circuit can be implemented using <em>only</em> NAND gates or <em>only</em> NOR gates[cite: 3].
+                    <strong>Answer:</strong> <strong>NAND</strong> and <strong>NOR</strong> are Universal Gates. They are called this because any fundamental logic operation (AND, OR, NOT) and consequently any complex boolean digital circuit can be implemented using <em>only</em> NAND gates or <em>only</em> NOR gates .
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Design an OR gate using NAND Gates.[cite: 3]</div>
+                <div class="question">Q: Design an OR gate using NAND Gates. </div>
                 <div class="answer">
                     <strong>Answer:</strong> By De Morgan's Law, $A + B = \overline{\overline{A} \cdot \overline{B}}$. We need three 2-input NAND gates:
                     <ol>
@@ -213,7 +213,7 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Design an OR gate using a 2:1 MUX.[cite: 3]</div>
+                <div class="question">Q: Design an OR gate using a 2:1 MUX. </div>
                 <div class="answer">
                     <strong>Answer:</strong> A 2:1 MUX follows the equation: $Out = \overline{S}I_0 + S I_1$.
                     To make an OR gate ($A + B$):
@@ -227,14 +227,14 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Jug Puzzle - I have a 2L jug and a 4L jug, how will you measure 3L?[cite: 3]</div>
+                <div class="question">Q: Jug Puzzle - I have a 2L jug and a 4L jug, how will you measure 3L? </div>
                 <div class="answer">
                     <strong>Answer:</strong> It is <strong>mathematically impossible</strong> to measure an odd amount (3L) using only even-capacity jugs (2L and 4L). Any combination of adding and subtracting 2 and 4 will always result in an even number (greatest common divisor of 2 and 4 is 2, and 3 is not divisible by 2).
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: Jug Puzzle - I have a 2L jug and a 3L jug, now measure 4L?[cite: 3]</div>
+                <div class="question">Q: Jug Puzzle - I have a 2L jug and a 3L jug, now measure 4L? </div>
                 <div class="answer">
                     <strong>Answer:</strong> Since a 3L jug and a 2L jug cannot independently hold 4L, you need a larger external vessel (or you just accumulate 4L). 
                     Logic: Fill the 2L jug and pour it into the large vessel. Fill the 2L jug again and pour it into the vessel. Total measured = $2L + 2L = 4L$.
@@ -245,7 +245,7 @@
             <h2 class="round-title">Round 2: STA & Physical Design Logic</h2>
 
             <div class="qa-card">
-                <div class="question">Q: Draw the Setup and Hold time equations in STA. How will you find the maximum frequency?[cite: 3]</div>
+                <div class="question">Q: Draw the Setup and Hold time equations in STA. How will you find the maximum frequency? </div>
                 <div class="answer">
                     <strong>Answer:</strong>
                     <ul>
@@ -260,58 +260,58 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What is a False Path in STA?[cite: 3]</div>
+                <div class="question">Q: What is a False Path in STA? </div>
                 <div class="answer">
-                    <strong>Answer:</strong> A False Path is a physical timing path present in the netlist that exists structurally but can never be logically sensitized or activated during actual functional operation[cite: 3]. Examples include paths crossed by mutually exclusive logic or static configuration registers. These must be explicitly constrained (ignored) in STA so the tool doesn't waste time optimizing a path that never switches.
+                    <strong>Answer:</strong> A False Path is a physical timing path present in the netlist that exists structurally but can never be logically sensitized or activated during actual functional operation . Examples include paths crossed by mutually exclusive logic or static configuration registers. These must be explicitly constrained (ignored) in STA so the tool doesn't waste time optimizing a path that never switches.
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What is Time Borrowing? Why does it happen in Latches and not Flip-flops?[cite: 3]</div>
+                <div class="question">Q: What is Time Borrowing? Why does it happen in Latches and not Flip-flops? </div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
-                        <li><strong>Time Borrowing (Cycle Stealing):</strong> A technique where a slow logic stage borrows a fraction of the clock cycle time from a subsequent faster logic stage to meet timing requirements[cite: 3].</li>
-                        <li><strong>Why Latches:</strong> Latches are level-sensitive (e.g., transparent while Clock is HIGH). If data arrives slightly after the clock rises, the latch simply passes it through, effectively borrowing time from the transparency window. Flip-flops are edge-triggered and present a hard, inflexible timing boundary, capturing data only at a precise instant, making borrowing impossible[cite: 3].</li>
+                        <li><strong>Time Borrowing (Cycle Stealing):</strong> A technique where a slow logic stage borrows a fraction of the clock cycle time from a subsequent faster logic stage to meet timing requirements .</li>
+                        <li><strong>Why Latches:</strong> Latches are level-sensitive (e.g., transparent while Clock is HIGH). If data arrives slightly after the clock rises, the latch simply passes it through, effectively borrowing time from the transparency window. Flip-flops are edge-triggered and present a hard, inflexible timing boundary, capturing data only at a precise instant, making borrowing impossible .</li>
                     </ul>
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What is Metastability? Why does it happen, and where are Synchronizers used?[cite: 3]</div>
+                <div class="question">Q: What is Metastability? Why does it happen, and where are Synchronizers used? </div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
-                        <li><strong>Metastability:</strong> An unstable state where a flip-flop's output voltage hovers between Logic 0 and Logic 1 for an unbounded amount of time before randomly resolving[cite: 3].</li>
-                        <li><strong>Why it happens:</strong> It occurs when a signal violates the Setup or Hold time windows around the clock edge, failing to give the internal feedback loop time to resolve to a stable state[cite: 3].</li>
-                        <li><strong>Synchronizers:</strong> Used primarily in Clock Domain Crossing (CDC) (transferring data between asynchronous clocks) or for external asynchronous inputs. A standard 2-flop synchronizer gives the signal a full extra clock cycle to resolve out of metastability before entering the downstream logic[cite: 3].</li>
+                        <li><strong>Metastability:</strong> An unstable state where a flip-flop's output voltage hovers between Logic 0 and Logic 1 for an unbounded amount of time before randomly resolving .</li>
+                        <li><strong>Why it happens:</strong> It occurs when a signal violates the Setup or Hold time windows around the clock edge, failing to give the internal feedback loop time to resolve to a stable state .</li>
+                        <li><strong>Synchronizers:</strong> Used primarily in Clock Domain Crossing (CDC) (transferring data between asynchronous clocks) or for external asynchronous inputs. A standard 2-flop synchronizer gives the signal a full extra clock cycle to resolve out of metastability before entering the downstream logic .</li>
                     </ul>
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: How many latches are in one flip-flop?[cite: 3]</div>
+                <div class="question">Q: How many latches are in one flip-flop? </div>
                 <div class="answer">
-                    <strong>Answer:</strong> A standard edge-triggered flip-flop contains exactly <strong>two</strong> latches connected in series: a Master latch (transparent on one clock phase) and a Slave latch (transparent on the opposite phase)[cite: 3].
+                    <strong>Answer:</strong> A standard edge-triggered flip-flop contains exactly <strong>two</strong> latches connected in series: a Master latch (transparent on one clock phase) and a Slave latch (transparent on the opposite phase) .
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What is the DFT stage? Why do we need to test the chip after manufacturing, and how is it done?[cite: 3]</div>
+                <div class="question">Q: What is the DFT stage? Why do we need to test the chip after manufacturing, and how is it done? </div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
-                        <li><strong>DFT (Design For Testability):</strong> The process of adding extra logic structures to the RTL/netlist specifically to make testing the fabricated silicon easier[cite: 3].</li>
-                        <li><strong>Why test after manufacturing:</strong> Silicon fabrication is imperfect. Dust, lithography errors, or processing defects can cause physical shorts or opens (Stuck-at-0, Stuck-at-1 faults). This is completely separate from functional bugs[cite: 3].</li>
-                        <li><strong>How it checks the chip:</strong> Functional vectors alone cannot provide high fault coverage. DFT replaces standard flops with <strong>Scan Flops</strong>, chaining them together into huge shift registers. This allows ATE (Automated Test Equipment) to shift in arbitrary test vectors, capture the combinational logic response, and shift it out for comparison. <strong>BIST (Built-In Self-Test)</strong> generates random patterns on-chip to test memory arrays (MBIST) or logic (LBIST) automatically[cite: 3].</li>
+                        <li><strong>DFT (Design For Testability):</strong> The process of adding extra logic structures to the RTL/netlist specifically to make testing the fabricated silicon easier .</li>
+                        <li><strong>Why test after manufacturing:</strong> Silicon fabrication is imperfect. Dust, lithography errors, or processing defects can cause physical shorts or opens (Stuck-at-0, Stuck-at-1 faults). This is completely separate from functional bugs .</li>
+                        <li><strong>How it checks the chip:</strong> Functional vectors alone cannot provide high fault coverage. DFT replaces standard flops with <strong>Scan Flops</strong>, chaining them together into huge shift registers. This allows ATE (Automated Test Equipment) to shift in arbitrary test vectors, capture the combinational logic response, and shift it out for comparison. <strong>BIST (Built-In Self-Test)</strong> generates random patterns on-chip to test memory arrays (MBIST) or logic (LBIST) automatically .</li>
                     </ul>
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What is Sign-off, and what checks are performed other than STA?[cite: 3]</div>
+                <div class="question">Q: What is Sign-off, and what checks are performed other than STA? </div>
                 <div class="answer">
-                    <strong>Answer:</strong> Sign-off is the absolute final verification phase where the layout and timing are rigorously checked against foundry rules before generating the GDSII file for tape-out[cite: 3].
+                    <strong>Answer:</strong> Sign-off is the absolute final verification phase where the layout and timing are rigorously checked against foundry rules before generating the GDSII file for tape-out .
                     <br>Other than STA, checks include:
                     <ul>
                         <li><strong>DRC (Design Rule Check):</strong> Ensures the layout meets manufacturing spacing/width rules.</li>
@@ -322,19 +322,19 @@
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What is a K-map? What does 'K' refer to, and why is it used?[cite: 3]</div>
+                <div class="question">Q: What is a K-map? What does 'K' refer to, and why is it used? </div>
                 <div class="answer">
-                    <strong>Answer:</strong> The 'K' stands for <strong>Karnaugh</strong> Map. It is a visual/graphical method used to simplify and minimize Boolean algebraic expressions without needing complex mathematical theorems. It organizes truth table inputs into a grid based on Gray code, allowing designers to group 1s and logically eliminate redundant variables[cite: 3].
+                    <strong>Answer:</strong> The 'K' stands for <strong>Karnaugh</strong> Map. It is a visual/graphical method used to simplify and minimize Boolean algebraic expressions without needing complex mathematical theorems. It organizes truth table inputs into a grid based on Gray code, allowing designers to group 1s and logically eliminate redundant variables .
                 </div>
             </div>
 
             <div class="qa-card">
-                <div class="question">Q: What are Combinational and Sequential circuits? Give examples.[cite: 3]</div>
+                <div class="question">Q: What are Combinational and Sequential circuits? Give examples. </div>
                 <div class="answer">
                     <strong>Answer:</strong> 
                     <ul>
-                        <li><strong>Combinational Circuits:</strong> The output depends <em>only</em> on the present state of the inputs. There is no memory or feedback. Example: Adders, Multiplexers, Decoders, ALU[cite: 3].</li>
-                        <li><strong>Sequential Circuits:</strong> The output depends on the present inputs <em>and</em> the past history (previous states). They contain memory elements and clocking mechanisms. Example: Flip-flops, Registers, Counters, Finite State Machines (FSMs)[cite: 3].</li>
+                        <li><strong>Combinational Circuits:</strong> The output depends <em>only</em> on the present state of the inputs. There is no memory or feedback. Example: Adders, Multiplexers, Decoders, ALU .</li>
+                        <li><strong>Sequential Circuits:</strong> The output depends on the present inputs <em>and</em> the past history (previous states). They contain memory elements and clocking mechanisms. Example: Flip-flops, Registers, Counters, Finite State Machines (FSMs) .</li>
                     </ul>
                 </div>
             </div>
