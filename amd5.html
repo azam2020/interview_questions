@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMD Interview Experience Q&A (Snehasish VLSI)</title>
+    <title>AMD Interview Experience Q&A (VLSI)</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -124,7 +124,7 @@
         <div class="header-section">
             <div class="container">
                 <h1>AMD VLSI Interview Q&A</h1>
-                <p class="lead mb-0">Technical Reference (Snehasish VLSI Hardware Role)</p>
+                <p class="lead mb-0">Technical Reference (VLSI Hardware Role)</p>
             </div>
         </div>
 
@@ -162,6 +162,36 @@
 
             <!-- Round 2 Section -->
             <h2 class="round-title">Round 2: CMOS Logic & Analog Circuits</h2>
+
+            <div class="qa-card">
+                <div class="question">Q: What is Stability and techniques to find Stability? Do you know any Criteria to find Stability (Barkhausen criteria)?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Stability in a circuit (especially feedback amplifiers) refers to its ability to return to equilibrium after a disturbance and avoid unwanted oscillations.
+                    <br><br><strong>Techniques to find stability:</strong>
+                    <ul>
+                        <li>Bode Plots (analyzing Gain Margin and Phase Margin).</li>
+                        <li>Nyquist Criterion and Root Locus.</li>
+                        <li>Pole-Zero analysis (ensuring all poles lie in the left half of the s-plane).</li>
+                    </ul>
+                    <br><strong>Barkhausen Criteria:</strong> Used to determine the conditions for an oscillator (which requires controlled, sustained instability). Sustained oscillations occur in a closed-loop system if:
+                    <ol>
+                        <li>The loop gain magnitude is equal to or greater than unity ($|A\beta| \ge 1$).</li>
+                        <li>The phase shift around the loop is $0^\circ$ or an integer multiple of $360^\circ$ ($\angle A\beta = 360^\circ \cdot n$).</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: What are the different types of Transmission gates?</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A Transmission Gate (or pass gate) is a bidirectional switch that passes logic levels from input to output. The primary types are:
+                    <ul>
+                        <li><strong>NMOS Pass Transistor:</strong> Passes a strong Logic 0, but a weak Logic 1 (degraded by $V_{th}$).</li>
+                        <li><strong>PMOS Pass Transistor:</strong> Passes a strong Logic 1, but a weak Logic 0 (degraded by $|V_{th}|$).</li>
+                        <li><strong>CMOS Transmission Gate:</strong> The most common type, constructed by placing an NMOS and a PMOS transistor in parallel, controlled by complementary signals. It solves the voltage degradation issue, successfully passing both a strong Logic 1 (via PMOS pulling to $V_{DD}$) and a strong Logic 0 (via NMOS pulling to GND).</li>
+                    </ul>
+                </div>
+            </div>
 
             <div class="qa-card">
                 <div class="question">Q: Draw an inverter using NAND gates. There are two designs; which should be preferred?[cite: 4]</div>
