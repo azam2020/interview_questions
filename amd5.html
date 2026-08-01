@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMD Interview Experience Q&A (Snehasish VLSI)</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- html2pdf JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- MathJax for rendering LaTeX/Math equations -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 50px;
+        }
+        .header-section {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .qa-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border-left: 5px solid #d35400; /* Distinct orange accent */
+            padding: 20px;
+            transition: transform 0.2s;
+            /* CRITICAL: Prevents cards from being split across PDF pages */
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .qa-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        .question {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+        .answer {
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.6;
+        }
+        .round-title {
+            color: #d35400;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #d35400;
+            padding-bottom: 10px;
+            page-break-after: avoid;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #d63384;
+        }
+        #exportBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: bold;
+        }
+        
+        /* PDF specific styles to ensure clean output */
+        .pdf-generating body {
+            background-color: white;
+            padding-bottom: 0;
+        }
+        .pdf-generating #exportBtn {
+            display: none !important;
+        }
+        .pdf-generating .qa-card {
+            box-shadow: none;
+            border: 1px solid #ddd;
+            border-left: 5px solid #d35400;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="exportBtn" class="btn btn-warning" onclick="exportToPDF()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf me-2" viewBox="0 0 16 16">
+            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+            <path d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
+        </svg> Export to PDF
+    </button>
+
+    <div id="content-to-export">
+        <div class="header-section">
+            <div class="container">
+                <h1>AMD VLSI Interview Q&A</h1>
+                <p class="lead mb-0">Technical Reference (Snehasish VLSI Hardware Role)</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Round 1 Section -->
+            <h2 class="round-title">Round 1: Verilog & Physical Design</h2>
+
+            <div class="qa-card">
+                <div class="question">Q: What is hardware modelling using Verilog?[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Hardware modeling is the process of describing the architecture, behavior, and structural logic of a digital system using a Hardware Description Language (HDL) like Verilog. It allows engineers to design at various levels of abstraction (behavioral, dataflow, gate-level, and switch-level) so the design can be simulated for functional correctness and later synthesized into actual physical logic gates.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: How do you infer latches in Verilog, and why is it usually considered a mistake in FPGA implementation?[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    Latches are inferred unintentionally in combinational blocks (<code>always @*</code> or <code>always_comb</code>) when a variable is not assigned a value in all possible execution paths (e.g., missing an <code>else</code> branch in an <code>if</code> statement, or a <code>default</code> case in a <code>case</code> statement). 
+                    <br><br><strong>Why it's a mistake:</strong> FPGAs are primarily flip-flop based. Unintentional latches cause severe static timing analysis (STA) issues, make the design difficult to test, and can lead to unpredictable glitches since latches are level-sensitive and transparent to combinational hazards.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Explain Frequency Division concepts.[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Frequency division reduces a high-frequency clock to a lower-frequency clock. 
+                    <ul>
+                        <li><strong>Divide-by-2 ($f/2$):</strong> Implemented using a simple D-Flip-Flop with its inverted output ($\overline{Q}$) fed back into its D input.</li>
+                        <li><strong>Divide-by-$N$ (Even):</strong> Achieved using a synchronous counter that counts from $0$ to $(N/2)-1$ and toggles the output clock on overflow.</li>
+                        <li><strong>Divide-by-$N$ (Odd):</strong> Requires more complex logic, utilizing both positive and negative edges of the source clock to achieve a precise 50% duty cycle.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Round 2 Section -->
+            <h2 class="round-title">Round 2: CMOS Logic & Analog Circuits</h2>
+
+            <div class="qa-card">
+                <div class="question">Q: Draw an inverter using NAND gates. There are two designs; which should be preferred?[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>Design 1:</strong> Tie both inputs of a 2-input NAND together (Input A to both pins).</li>
+                        <li><strong>Design 2:</strong> Connect one input to A, and tie the other input to Logic 1 ($V_{DD}$).</li>
+                    </ul>
+                    <strong>Preferred:</strong> <strong>Design 2</strong> is strictly better in physical design. In Design 1, the driving signal must drive the gate capacitance of <em>both</em> input transistors, doubling the input load and slowing down the previous stage. In Design 2, the driving signal only charges one gate capacitance, resulting in a faster and less power-hungry circuit.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Design an XOR using 2-input NAND gates.[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> The most optimized way requires 4 NAND gates:
+                    <ol>
+                        <li>NAND1: <code>NAND(A, B)</code></li>
+                        <li>NAND2: <code>NAND(A, NAND1)</code></li>
+                        <li>NAND3: <code>NAND(B, NAND1)</code></li>
+                        <li>NAND4: <code>NAND(NAND2, NAND3)</code> $\rightarrow A \oplus B$</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Is there any significance to putting one of the inputs closer to the output in a NOR CMOS implementation?[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Yes, this relies on <strong>transistor ordering</strong> (or pin reassigning). In a NOR gate, the PMOS transistors are in series. The critical/late-arriving signal should be assigned to the PMOS transistor <em>closest to the output node</em>. 
+                    <br><strong>Reason:</strong> If the late signal is at the top (closest to $V_{DD}$), it has to charge intermediate parasitic node capacitances between the series transistors before reaching the output, increasing delay. Putting the late-arriving signal closest to the output discharges/charges the output node almost immediately, minimizing path delay.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Which should be preferred, NAND or NOR?[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> <strong>NAND</strong> is always preferred in CMOS design. 
+                    Because electrons (NMOS) have higher mobility than holes (PMOS), PMOS transistors must be sized larger to achieve the same current. 
+                    In a NAND gate, the inherently weak PMOS transistors are placed in parallel (which reduces resistance), while the strong NMOS transistors are in series. 
+                    In a NOR gate, the weak PMOS are in series, creating a huge resistance stack that requires massive sizing to overcome, increasing area and parasitic capacitance.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Draw a source follower circuit and its small signal model. Why is it called a source follower?[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ul>
+                        <li><strong>Circuit:</strong> Also known as a Common-Drain amplifier. The input is applied to the Gate, the Drain is tied directly to $V_{DD}$, and the output is taken from the Source (with a load resistor or current source to ground).</li>
+                        <li><strong>Small Signal Model:</strong> $V_{in}$ is between Gate and Ground. A dependent current source ($g_m \cdot V_{gs}$) points from Drain to Source in parallel with output resistance $r_o$.</li>
+                        <li><strong>Why the name:</strong> Because the voltage gain is approximately 1 ($A_v \approx 1$). If the gate voltage increases, the source voltage increases by almost exactly the same amount to maintain $V_{gs}$ slightly above $V_{th}$. The source literally "follows" the gate. It is used as a voltage buffer due to its high input impedance and low output impedance.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: If a fabricated chip has a hold violation, how would you fix it using temperature or VDD?[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Post-fabrication, hold violations cannot be fixed by lowering clock frequency. However, you can manipulate operating conditions[cite: 4]:
+                    <br><strong>Temperature Inversion:</strong> In advanced deep sub-micron nodes (sub-65nm) operating at low VDD, higher temperatures actually cause the threshold voltage ($V_{th}$) to drop significantly, which overtakes the mobility degradation. Thus, the chip becomes <em>faster</em> at high temperatures. To fix a hold violation (which requires slowing down the data path), you would operate the chip at a <strong>colder temperature</strong> to increase cell delay, adding artificial hold margin.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: If a fabricated chip has a setup violation, without altering clock frequency, how would you fix it?[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> Setup violations mean the data is arriving too late. You need to speed up the combinational logic. This can be done by <strong>increasing the operating voltage ($V_{DD}$)</strong> (often called overvolting). A higher $V_{DD}$ increases the drive current of the transistors, decreasing the propagation delay ($T_{comb}$) and allowing the data to meet the setup window[cite: 4].
+                </div>
+            </div>
+
+            <!-- Round 3 Section -->
+            <h2 class="round-title">Round 3: Advanced Concepts & Scripting</h2>
+
+            <div class="qa-card">
+                <div class="question">Q: Write Verilog code for an active-low asynchronous reset flip-flop.[cite: 4]</div>
+                <div class="answer">
+<pre><code>module async_rst_ff (
+    input clk,
+    input rst_n,
+    input d,
+    output reg q
+);
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            q <= 1'b0;
+        else
+            q <= d;
+    end
+endmodule</code></pre>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Write Verilog code for an active-low asynchronous reset latch.[cite: 4]</div>
+                <div class="answer">
+<pre><code>module async_rst_latch (
+    input en,
+    input rst_n,
+    input d,
+    output reg q
+);
+    always @(en or rst_n or d) begin
+        if (!rst_n)
+            q <= 1'b0;
+        else if (en)
+            q <= d;
+    end
+endmodule</code></pre>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: There are two paths: one with $n$ identical inverters, the other with $n$ identical buffers. Effect on duty cycle?[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <strong>The Inverter chain is much better for duty cycle.</strong>
+                    <ul>
+                        <li><strong>Buffers:</strong> A buffer consists of two inverters. If the pull-up network is weaker than the pull-down network, the rise time is slower than the fall time. As a signal passes through $n$ buffers, this asymmetric delay <em>accumulates</em> in the same direction, severely shrinking or expanding the pulse width, causing massive Duty Cycle Distortion (DCD).</li>
+                        <li><strong>Inverters:</strong> An inverter flips the signal. A slow rise time on stage 1 becomes a slow fall time on stage 2. The asymmetry cancels itself out at every alternate stage, preserving the original 50% duty cycle much more effectively.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: If metastability time is more than one clock cycle, what should we do? (Regarding Synchronizers)[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> A standard 2-flop synchronizer grants exactly one clock cycle of resolution time for the metastable signal to settle. If the Mean Time Between Failures (MTBF) calculations show that the signal might remain metastable for <em>longer</em> than one cycle (usually in very high-frequency domains), you must use a <strong>3-flop or N-flop synchronizer</strong>. Adding more flip-flops in series adds full clock cycles to the resolution budget, exponentially increasing the MTBF.
+                </div>
+            </div>
+
+            <div class="qa-card">
+                <div class="question">Q: Puzzle: If we have a 3L jug and a 5L jug, how will you measure 4L?[cite: 4]</div>
+                <div class="answer">
+                    <strong>Answer:</strong> 
+                    <ol>
+                        <li>Fill the 5L jug completely.</li>
+                        <li>Pour water from the 5L jug into the 3L jug until the 3L jug is full. (You now have exactly 2L left in the 5L jug).</li>
+                        <li>Empty the 3L jug entirely.</li>
+                        <li>Pour the remaining 2L from the 5L jug into the empty 3L jug. (The 3L jug now has 2L, with room for 1L more).</li>
+                        <li>Refill the 5L jug completely.</li>
+                        <li>Carefully pour from the 5L jug into the 3L jug until the 3L jug is full (This takes exactly 1L).</li>
+                        <li><strong>Result:</strong> The 5L jug now contains exactly 4L ($5L - 1L = 4L$).</li>
+                    </ol>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Script to handle PDF Export and wait for MathJax -->
+    <script>
+        function exportToPDF() {
+            // Add a class to hide the button and adjust styles
+            document.body.classList.add('pdf-generating');
+            
+            const element = document.getElementById('content-to-export');
+            
+            // html2pdf configuration optimized to prevent blank pages and set requested filename
+            const opt = {
+                margin:       [0.4, 0.4, 0.4, 0.4], 
+                filename:     'amd_questions.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { 
+                    scale: 2,
+                    useCORS: true,
+                    scrollY: 0
+                },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+                // Strict CSS page-break adherence
+                pagebreak:    { mode: ['css', 'legacy'] }
+            };
+            
+            // Wait slightly for MathJax to finish rendering before capturing
+            setTimeout(() => {
+                html2pdf().set(opt).from(element).save().then(() => {
+                    document.body.classList.remove('pdf-generating');
+                });
+            }, 300);
+        }
+    </script>
+</body>
+</html>
